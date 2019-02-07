@@ -1,4 +1,5 @@
 class Client < ApplicationRecord
+    has_many :policies
     validates :email,
     presence: true, 
     uniqueness: true, 
