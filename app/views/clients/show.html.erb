@@ -14,7 +14,9 @@
 <%= link_to 'Edit Client Details', edit_client_path(@client) %> |
 <%= link_to 'Back to Client Directory', clients_path %>
 <br>
+<%= link_to 'Add a Policy', new_client_policy_path(@client) %>
 <% @policies.each do |policy| %>
 <p>Policy Number: <%= policy.policy_number%></p>
 <p>Policy Premium: <%= number_to_currency(policy.annual_premium, {precision: 2})%></p>
+<%= link_to 'Delete Policy', client_policy_path(policy), method: :delete %>
 <% end %>
