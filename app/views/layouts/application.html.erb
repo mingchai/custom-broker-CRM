@@ -10,7 +10,15 @@
   </head>
 
   <body>
-  
+    <header>
+      <nav>
+      <% if user_signed_in? %>
+        <%= link_to 'Sign Out', session_path%>
+      <% else %>
+        <%= link_to 'Sign In', new_session_path %>
+      <% end %>
+      </nav>
+    </header>
     <%= yield %>
   </body>
 </html>
