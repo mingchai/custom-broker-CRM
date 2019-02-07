@@ -16,10 +16,10 @@
       <% if user_signed_in? %>
         <% if current_user.admin == true %>
           <%= link_to 'New Employee Profile', new_user_path %>
-        <% else %>
-          <%= link_to 'Sign Out', session_path, method: :delete%>
         <% end %>
+          <%= link_to 'Sign Out', session_path, method: :delete%>
           <%= link_to 'Employee Directory', users_path %>
+          <%= link_to 'Client Directory', clients_path %>
       <% else %>
         <%= link_to 'Sign In', new_session_path %>
       <% end %>
