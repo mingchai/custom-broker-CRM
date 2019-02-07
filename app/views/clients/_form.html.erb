@@ -1,0 +1,57 @@
+<%= form_with(model: client, local: true) do |f| %>
+  <% if client.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(client.errors.count, "error") %> prohibited this client from being saved:</h2>
+
+      <ul>
+      <% client.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+  <div>
+    <%=f.label :first_name%>
+    <%=f.text_field :first_name%>
+  </div>
+  <div>
+    <%=f.label :last_name%>
+    <%=f.text_field :last_name%>
+  </div>
+  <div>
+    <%=f.label :phone_number%>
+    <%=f.text_field :phone_number%>
+  </div>
+  <div>
+    <%=f.label :email%>
+    <%=f.email_field :email%>
+  </div>
+  <div>
+    <%=f.label :street_address%>
+    <%=f.text_field :street_address%>
+  </div>
+  <div>
+    <%=f.label :city%>
+    <%=f.text_field :city%>
+  </div>
+  <div>
+    <%=f.label :province%>
+    <%=f.select :province, ['AB', 'BC', 'SK', 'MB','QC','ON','NL','NS','PEI','YT','NT', 'NU']%>
+  </div>
+  <div>
+    <%=f.label :postal_code%>
+    <%=f.text_field :postal_code%>
+  </div>
+  <div>
+    <%= f.check_box :marketing_consent, {}, "true", "false" %>
+    <%= f.label :marketing_consent, "Has the client agreed to receive marketing materials and acknowledged that they may opt out at any time?" %>
+  </div>
+  <br>
+    <%= f.submit %>
+    <%= link_to 'Cancel', 'javascript:history.back()', data:{confirm: "All changes will not be saved. Are you sure?"} %>
+  </div>
+<% end %>
+
+:marketing_consent
