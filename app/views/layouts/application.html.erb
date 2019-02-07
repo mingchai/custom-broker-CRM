@@ -14,8 +14,12 @@
       <nav>
       <%= link_to 'Home', root_path %>
       <% if user_signed_in? %>
-        <%= link_to 'Sign Out', session_path, method: :delete%>
-        <%= link_to 'New Employee Profile', new_user_path %>
+        <% if current_user.admin == true %>
+          <%= link_to 'New Employee Profile', new_user_path %>
+        <% else %>
+          <%= link_to 'Sign Out', session_path, method: :delete%>
+        <% end %>
+          <%= link_to 'Employee Directory', users_path %>
       <% else %>
         <%= link_to 'Sign In', new_session_path %>
       <% end %>
