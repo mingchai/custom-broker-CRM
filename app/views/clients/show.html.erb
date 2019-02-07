@@ -16,4 +16,5 @@
 <br>
 <% @policies.each do |policy| %>
 <p>Policy Number: <%= policy.policy_number%></p>
+<p>Policy Premium: <%= number_to_currency(policy.annual_premium, {precision: 2})%></p>
 <% end %>
