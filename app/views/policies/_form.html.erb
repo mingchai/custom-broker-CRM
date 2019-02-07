@@ -1,4 +1,4 @@
-<%= form_with(model: policy, local: true) do |form| %>
+<%= form_with(model: [@client, @policy], local: true) do |f| %>
   <% if policy.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(policy.errors.count, "error") %> prohibited this policy from being saved:</h2>
@@ -12,6 +12,14 @@
   <% end %>
 
   <div class="actions">
-    <%= form.submit %>
+  <div>
+    <%= f.label :policy_number%>
+    <%= f.text_field :policy_number%>
+  </div>
+  <div>
+    <%= f.label :annual_premium%>
+    <%= f.text_field :annual_premium%>
+  </div>
+    <%= f.submit %>
   </div>
 <% end %>
