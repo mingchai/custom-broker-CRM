@@ -1,23 +1,31 @@
 <p id="notice"><%= notice %></p>
 <h1><%=@client.full_name%>'s' Details</h1>
 
-<p><%= @client.phone_number %></p>
-<p><%= @client.email %></p>
-<p><%= @client.street_address %></p>
-<p><%= @client.city %></p>
-<p><%= @client.postal_code %></p>
+<p><strong> Phone Number: </strong><%= @client.phone_number %></p>
+<p><strong>Email:</strong> <%= @client.email %></p>
+<p><strong>Street Address:</strong> <%= @client.street_address %></p>
+<p><strong>City: </strong><%= @client.city %></p>
+<p><strong>Postal Code:</strong> <%= @client.postal_code %></p>
+<h4>Marketing Consent:</h4>
 <% if @client.marketing_consent? %>
-<p> Client May Be Contacted About New Products and Offerings </p>
+    <p> Client May Be Contacted About New Products and Offerings </p>
 <% else %>
-<p> Client Does Not Wish to be Contacted About New Products and Offerings </p>
+    <p> Client Does Not Wish to be Contacted About New Products and Offerings </p>
 <% end %>
 <%= link_to 'Edit Client Details', edit_client_path(@client) %> |
 <%= link_to 'Back to Client Directory', clients_path %>
+
 <br>
+
+<div><h5>Map PlaceHolder</h5></div>
+
+<br>
+
 <%= link_to 'Add a Policy', new_client_policy_path(@client) %>
+<h4>Existing Policies</h4>
 <% @policies.each do |policy| %>
-<p>Policy Number: <%= policy.policy_number%></p>
-<p>Policy Premium: <%= number_to_currency(policy.annual_premium, {precision: 2})%></p>
-<%= link_to 'Edit Policy', edit_client_policy_path(@client.id, policy.id) %>
-<%= link_to 'Delete Policy', client_policy_path(@client.id, policy.id), method: :delete %>
+    <p>Policy Number: <%= policy.policy_number%></p>
+    <p>Policy Premium: <%= number_to_currency(policy.annual_premium, {precision: 2})%></p>
+    <%= link_to 'Edit Policy', edit_client_policy_path(@client.id, policy.id) %>
+    <%= link_to 'Delete Policy', client_policy_path(@client.id, policy.id), method: :delete %>
 <% end %>
