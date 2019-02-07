@@ -20,6 +20,7 @@ class PoliciesController < ApplicationController
 
   # GET /policies/1/edit
   def edit
+    @client = Client.find params[:client_id]
   end
 
   # POST /policies
@@ -45,7 +46,7 @@ class PoliciesController < ApplicationController
   def update
     respond_to do |format|
       if @policy.update(policy_params)
-        format.html { redirect_to @policy, notice: 'Policy was successfully updated.' }
+        format.html { redirect_to client_path(@policy.client), notice: 'Policy was successfully updated.' }
         format.json { render :show, status: :ok, location: @policy }
       else
         format.html { render :edit }
