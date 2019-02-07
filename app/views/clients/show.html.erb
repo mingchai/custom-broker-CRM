@@ -18,5 +18,5 @@
 <% @policies.each do |policy| %>
 <p>Policy Number: <%= policy.policy_number%></p>
 <p>Policy Premium: <%= number_to_currency(policy.annual_premium, {precision: 2})%></p>
-<%= link_to 'Delete Policy', client_policy_path(policy), method: :delete %>
+<%= link_to 'Delete Policy', client_policy_path(@client.id, policy.id), method: :delete %>
 <% end %>
