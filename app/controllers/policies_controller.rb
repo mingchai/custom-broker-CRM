@@ -59,7 +59,7 @@ class PoliciesController < ApplicationController
   def destroy
     @policy.destroy
     respond_to do |format|
-      format.html { redirect_to policies_url, notice: 'Policy was successfully destroyed.' }
+      format.html { redirect_to client_url(@policy.client_id), notice: 'Policy was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -67,7 +67,7 @@ class PoliciesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_policy
-      @policy = Policy.find(params[:id])
+      @policy = Policy.find(params[:client_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
