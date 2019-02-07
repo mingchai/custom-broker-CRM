@@ -10,6 +10,7 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
+    @policies = @client.policies.order(created_at: :desc)
   end
 
   # GET /clients/new

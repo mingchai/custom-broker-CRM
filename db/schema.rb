@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_07_044755) do
+ActiveRecord::Schema.define(version: 2019_02_07_052920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,16 @@ ActiveRecord::Schema.define(version: 2019_02_07_044755) do
     t.index ["email"], name: "index_clients_on_email"
   end
 
+  create_table "policies", force: :cascade do |t|
+    t.string "policy_number"
+    t.float "annual_premium"
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_policies_on_client_id"
+    t.index ["policy_number"], name: "index_policies_on_policy_number", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -42,4 +52,5 @@ ActiveRecord::Schema.define(version: 2019_02_07_044755) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "policies", "clients"
 end
