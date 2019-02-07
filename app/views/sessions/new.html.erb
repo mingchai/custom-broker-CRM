@@ -1,5 +1,5 @@
 <h1>Sign In</h1>
-<%= form_with session_path, local: true do |f| %>
+<%= form_with url: session_path, local: true do |f| %>
     <div>
         <%=f.label :email%>
         <%= f.email_field :email%>
