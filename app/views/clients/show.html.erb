@@ -1,4 +1,15 @@
 <p id="notice"><%= notice %></p>
+<h1><%=@client.full_name%>'s' Details</h1>
 
-<%= link_to 'Edit', edit_client_path(@client) %> |
-<%= link_to 'Back', clients_path %>
+<p><%= @client.phone_number %></p>
+<p><%= @client.email %></p>
+<p><%= @client.street_address %></p>
+<p><%= @client.city %></p>
+<p><%= @client.postal_code %></p>
+<% if @client.marketing_consent? %>
+<p> Client May Be Contacted About New Products and Offerings </p>
+<% else %>
+<p> Client Does Not Wish to be Contacted About New Products and Offerings </p>
+<% end %>
+<%= link_to 'Edit Client Details', edit_client_path(@client) %> |
+<%= link_to 'Back to Client Directory', clients_path %>
