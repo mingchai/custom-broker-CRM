@@ -14,6 +14,7 @@ class PoliciesController < ApplicationController
 
   # GET /policies/new
   def new
+    @client = Client.find params[:client_id]
     @policy = Policy.new
   end
 
@@ -24,11 +25,13 @@ class PoliciesController < ApplicationController
   # POST /policies
   # POST /policies.json
   def create
+    @client = Client.find params[:client_id]
     @policy = Policy.new(policy_params)
+    @policy.client_id = @client
 
     respond_to do |format|
       if @policy.save
-        format.html { redirect_to @policy, notice: 'Policy was successfully created.' }
+        format.html { redirect_to client_path(@client), notice: 'Policy was successfully created.' }
         format.json { render :show, status: :created, location: @policy }
       else
         format.html { render :new }
@@ -69,6 +72,6 @@ class PoliciesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def policy_params
-      params.fetch(:policy, {})
+      params.fetch(:policy, {}).permit(:policy_number, :annual_premium)
     end
 end
