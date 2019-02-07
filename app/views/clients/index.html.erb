@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Clients</h1>
+<%= link_to 'New Client', new_client_path %>
 
 <table>
   <thead>
@@ -11,6 +12,9 @@
 
   <tbody>
     <% @clients.each do |client| %>
+      <h4><%= client.full_name %></h4>
+      <p><%= client.phone_number %></p>
+      <p><%= client.email %></p>
       <tr>
         <td><%= link_to 'Show', client %></td>
         <td><%= link_to 'Edit', edit_client_path(client) %></td>
@@ -22,4 +26,3 @@
 
 <br>
 
-<%= link_to 'New Client', new_client_path %>
