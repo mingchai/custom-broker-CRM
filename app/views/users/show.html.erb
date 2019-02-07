@@ -1,4 +1,8 @@
 <p id="notice"><%= notice %></p>
-
+<h2>User Details</h2>
+Name: <%= @user.full_name %> <br>
+Email: <%= @user.email %> <br>
+Admin Privileges: <%= @user.admin %>
+<br>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

@@ -32,6 +32,11 @@
       <%= f.label :password_confirmation%>
       <%= f.password_field :password_confirmation%>
     </div>
+    <div>
+      <%= f.label :admin%>
+      <%= f.check_box :admin, {}, "true", "false"%>
+    </div>
+    <br>
     <%= f.submit %>
   </div>
 <% end %>
