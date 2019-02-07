@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :policies
   get("/", to: "welcome#home", as: :root)
   resource :session, only: [:new, :create, :destroy]
   resources :users
