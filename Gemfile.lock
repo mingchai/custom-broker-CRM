@@ -64,6 +64,8 @@ GEM
     execjs (2.7.0)
     faker (1.9.1)
       i18n (>= 0.7)
+    faraday (0.15.4)
+      multipart-post (>= 1.2, < 3)
     ffi (1.10.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -73,6 +75,7 @@ GEM
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    jwt (2.1.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -91,6 +94,7 @@ GEM
     minitest (5.11.3)
     msgpack (1.2.6)
     multi_json (1.13.1)
+    multipart-post (2.0.0)
     nio4r (2.3.1)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
@@ -162,6 +166,10 @@ GEM
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.9)
+    twilio-ruby (5.20.0)
+      faraday (~> 0.9)
+      jwt (>= 1.5, <= 2.5)
+      nokogiri (>= 1.6, < 2.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (4.1.20)
@@ -201,6 +209,7 @@ DEPENDENCIES
   selectize-rails
   spring
   spring-watcher-listen (~> 2.0.0)
+  twilio-ruby
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
