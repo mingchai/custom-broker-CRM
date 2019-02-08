@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get("/", to: "welcome#home", as: :root)
   resource :session, only: [:new, :create, :destroy]
   resources :users
-  resources :clients, shallow: true do
+  resources :clients do
     resources :policies #do
       # resources :coverages, except: [:show]
     # end
