@@ -82,3 +82,11 @@ div {
 label {
   display: block;
 }
+
+#map {
+  height: 360px;
+  width: 100%;
+  overflow: hidden;
+  float: left;
+  border: thin solid #333;
+  }
