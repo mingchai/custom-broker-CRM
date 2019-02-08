@@ -40,6 +40,10 @@ gem "selectize-rails"
 gem "twilio-ruby"
 gem 'jquery-rails'
 gem "bootstrap"
+gem 'active_model_serializers'
+gem 'rack-cors'
+gem 'webpacker'
+gem 'react-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
