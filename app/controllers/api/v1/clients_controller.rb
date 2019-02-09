@@ -25,7 +25,7 @@ class Api::V1::ClientsController < Api::ApplicationController
          marketing_consent: client.marketing_consent,
          broker_id: client.broker_id }
       else
-        render json: {errors: @client.errors, status: :unprocessable_entity }
+        render json: {errors: client.errors, status: 422 }
       end
     end
 
