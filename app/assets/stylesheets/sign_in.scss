@@ -3,23 +3,21 @@
   background-size: cover; 
   height: 100vh; 
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-
-
 
 #sign-in-container{
   background: white;
-  // align-content: center;
-  // justify-content: center;
   display: flex;
   width: 30%;
-  height: 50%;
+  height: 80%;
   border-radius: 5%;
 }
 
 .container{
   flex-direction: column;
   justify-content: center;
-  align-content: center;
   align-items: center;
 }
