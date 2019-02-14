@@ -1,0 +1,25 @@
+#background-container{
+  background: url(/assets/umbrella.jpg) no-repeat center; 
+  background-size: cover; 
+  height: 100vh; 
+  position: relative;
+}
+
+
+
+#sign-in-container{
+  background: white;
+  // align-content: center;
+  // justify-content: center;
+  display: flex;
+  width: 30%;
+  height: 50%;
+  border-radius: 5%;
+}
+
+.container{
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}

@@ -1,13 +1,19 @@
-<h1>Sign In</h1>
-<%= form_with url: session_path, local: true do |f| %>
-    <div>
-        <%=f.label :email%>
-        <%= f.email_field :email%>
+<%= stylesheet_link_tag 'sign_in' %>
+
+<div id="background-container">
+    <div id="sign-in-container" class="container">
+        <h1>Sign In</h1>
+        <%= form_with url: session_path, local: true do |f| %>
+            <div>
+                <%#=f.label :email%>
+                <%= f.email_field :email, placeholder: "Email", class: "mb-2"%>
+            </div>
+            <div>
+                <%#=f.label :password%>
+                <%= f.password_field :password, placeholder: "Password"%>
+            </div>
+            <br>
+            <%=f.submit 'Sign In', class: "btn btn-primary"%>
+        <% end %>
     </div>
-    <div>
-        <%=f.label :password%>
-        <%= f.password_field :password%>
-    </div>
-    <br>
-    <%=f.submit 'Sign In'%>
-<% end %>
+</div>
