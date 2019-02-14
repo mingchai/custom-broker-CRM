@@ -1,12 +1,27 @@
 <p id="notice"><%= notice %></p>
 <h1><%=@client.full_name%>'s' Details</h1>
 
-<p><strong> Phone Number: </strong><%= @client.phone_number %></p>
-<p><strong>Email:</strong> <%= @client.email %></p>
-<p><strong>Street Address:</strong> <%= @client.street_address %></p>
-<p><strong>City: </strong><%= @client.city %></p>
-<p><strong>Postal Code:</strong> <%= @client.postal_code %></p>
-<h4>Marketing Consent:</h4>
+<p>
+    <strong> Phone Number: </strong>
+    <span id="phone_number"><%= @client.phone_number %></span>
+</p>
+<p>
+    <strong>Email:</strong> 
+    <span id= "email"><%= @client.email %></span>
+</p>
+<p>
+    <strong>Street Address:</strong> 
+    <span id= "street_address"><%= @client.street_address %></span>
+</p>
+<p>
+    <strong>City: </strong>
+    <span id="city"><%= @client.city %></span>
+</p>
+<p>
+    <strong>Postal Code:</strong> 
+    <span id="postal_code"><%= @client.postal_code %></span>
+</p>
+<strong>Marketing Consent:</strong>
 <% if @client.marketing_consent? %>
     <p> Client May Be Contacted About New Products and Offerings </p>
 <% else %>
@@ -16,8 +31,8 @@
 <%= link_to 'Back to Client Directory', clients_path %>
 
 <br>
-
-<div><h2>***[Map PlaceHolder]***</h2></div>
+<h2>Client Exposures</h2>
+<div id="map"></div>
 
 <br>
 
@@ -27,7 +42,104 @@
 <% @policies.each do |policy| %>
     <p>Policy Number: <%= policy.policy_number%></p>
     <p>Policy Premium: <%= number_to_currency(policy.annual_premium, {precision: 2})%></p>
-    <%= link_to 'Edit Policy', edit_client_policy_path(@client.id, policy.id) %>
+    <%= link_to 'Edit Policy', edit_client_policy_path(@client.id, policy.id), class: %>
     <%= link_to 'Delete Policy', client_policy_path(@client.id, policy.id), method: :delete %>
 <% end %>
 </div>
+
+<%#= javascript_pack_tag 'initMap' %>
+
+<script>
+    
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    <%# default center on Vancouver %>
+    center: new google.maps.LatLng(49.2827, -123.12073),
+    zoom: 14,
+    mapTypeId: 'terrain'
+    
+  });
+  // <%#destination to be the client's coordinates%>
+  let destination = {lat: 49.2827, lng: -123.12073};
+  nearest fire station
+  let origin = {lat: 49.2757557879496,	lng: -123.089633564924};
+
+  // <%#put the distance into a pop-up for each marker%>
+  let service = new google.maps.DistanceMatrixService;
+        service.getDistanceMatrix({
+          origins: [origin],
+          destinations: [destination],
+          travelMode: 'DRIVING',
+          unitSystem: google.maps.UnitSystem.METRIC,
+          avoidHighways: false,
+          avoidTolls: false
+        }, function(response, status) {
+          if (status !== 'OK') {
+            alert('Error was: ' + status);
+          } else { 
+            for(let i = 0; i < response.originAddresses.length; i++){
+              let results = response.rows[i].elements;
+              for(let j = 0; j < results.length; j++){
+                console.log(results[j].distance.text)
+              }
+            }
+            }
+          })
+
+
+  let geocoder = new google.maps.Geocoder();
+  geocodeAddress(geocoder, map);
+  
+  // Overlays
+  let neighbourhoods = 'https://data.vancouver.ca/download/kml/cov_localareas.kml';
+  let kmlLayer = new google.maps.KmlLayer(neighbourhoods, {
+        suppressInfoWindows: true,
+        preserveViewport: true,
+        map: map
+    });
+    
+  let fireHalls = 'https://data.vancouver.ca/download/kml/fire_halls.kmz';
+  let kmlLayer2 = new google.maps.KmlLayer(fireHalls, {
+      suppressInfoWindows: true,
+      preserveViewport: true,
+      map: map
+  });
+
+  // let blockOutlines = "https://data.vancouver.ca/download/kml/district_lots.kmz";
+  // let kmlLayer3 = new google.maps.KmlLayer(blockOutlines, {
+  //     suppressInfoWindows: true,
+  //     preserveViewport: true,
+  //     map: map
+  // });
+
+  // let subdivisions = "https://data.vancouver.ca/download/kml/zoning_districts.kmz";
+  // let kmlLayer4 = new google.maps.KmlLayer(subdivisions, {
+  //     suppressInfoWindows: true,
+  //     preserveViewport: true,
+  //     map: map
+  // });
+
+}
+
+
+function geocodeAddress(geocoder, resultsMap) {
+  let clientLocation = (document.getElementById("street_address").innerText) + (document.getElementById("city").innerText) ;
+  geocoder.geocode({'address': clientLocation}, function(results, status) {
+    if (status === 'OK') {
+      resultsMap.setCenter(results[0].geometry.location);
+      resultsMap.setZoom(16);
+      let marker = new google.maps.Marker({
+        map: resultsMap,
+        position: results[0].geometry.location
+      });
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+
+</script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=<%=Rails.application.credentials.google_maps_api_key%>&callback=initMap">
+</script>
