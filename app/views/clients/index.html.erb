@@ -1,13 +1,21 @@
+<%= stylesheet_link_tag 'index' %>
 <p id="notice"><%= notice %></p>
 
-<h1>Clients</h1>
-<%= link_to 'New Client', new_client_path %>
+<h1>Clients <span><%= link_to 'Add Client Profile', new_client_path, class:"btn btn-sm btn-success" %></span> </h1>
 
+  <div id= "client-container">
     <% @clients.each do |client| %>
-      <h4><%= client.full_name %></h4>
-      <p><%= client.phone_number %></p>
-      <p><%= client.email %></p>
-        <%= link_to 'Show More Detail', client %>
-        <%= link_to 'Delete Record', client, method: :delete, data: { confirm: 'This action will permanently delete this entry. Are you sure?' } %>
+    <div class ="card m-2" style="width: 18rem;">
+      <div class = "card-header">
+        <h4><%= link_to client.full_name, client %></h4>
+        </div>
+        <div class ="card-body">
+        <p><%= client.phone_number %></p>
+        <p><%= client.email %></p>
+          <%= link_to 'Show More Detail', client, class:"btn btn-sm btn-info" %>
+          <%= link_to 'Delete Record', client, method: :delete, data: { confirm: 'This action will permanently delete this entry. Are you sure?' }, class:"btn btn-sm btn-danger" %>
+      </div>
+    </div>
     <% end %>
+  </div>
 <br>
