@@ -40,9 +40,10 @@
   <input type="checkbox" name="fire_halls" id="fire_halls"> Fire Hall Proximity
   </span>
 </div>
+<button id="firehall-details">Fire Hall Details</button>
 <br>
-<div id="firehall-list">
-  <h3 id="firehall-details">Fire Hall Locations</h3>
+<div id="firehall-list" hidden>
+  <h3>Fire Hall Locations</h3>
   <p id="near">Within 2.5kms</p>
   <p>
     <ul>
@@ -177,6 +178,11 @@ document.querySelector("#fire_halls").addEventListener("change", () => {
     };
   }
 );
+
+document.querySelector("#firehall-details").addEventListener("click", event => {
+  let list = document.querySelector("#firehall-list");
+  list.toggleAttribute('hidden');
+})
 
 </script>
 
