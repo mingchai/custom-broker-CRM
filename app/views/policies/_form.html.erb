@@ -20,6 +20,10 @@
     <%= f.label :annual_premium%>
     <%= f.text_field :annual_premium%>
   </div>
+  <div>
+    <%= f.label :start_date%>
+    <%= select_date Date.today, prefix: :start_date %>
+  </div>
     <%= f.submit %>
   </div>
 <% end %>

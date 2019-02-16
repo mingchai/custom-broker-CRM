@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_14_025407) do
+ActiveRecord::Schema.define(version: 2019_02_15_040956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2019_02_14_025407) do
     t.string "province"
     t.string "postal_code"
     t.boolean "marketing_consent"
-    t.integer "broker_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "full_address"
@@ -43,12 +43,23 @@ ActiveRecord::Schema.define(version: 2019_02_14_025407) do
     t.index ["policy_id"], name: "index_coverages_on_policy_id"
   end
 
+  create_table "fire_halls", force: :cascade do |t|
+    t.string "address"
+    t.string "fire_hall_name"
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "policies", force: :cascade do |t|
     t.string "policy_number"
     t.float "annual_premium"
     t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "start_date"
+    t.date "expiry_date"
     t.index ["client_id"], name: "index_policies_on_client_id"
     t.index ["policy_number"], name: "index_policies_on_policy_number", unique: true
   end

@@ -10,7 +10,7 @@ class CreateClients < ActiveRecord::Migration[5.2]
       t.string :province
       t.string :postal_code
       t.boolean :marketing_consent
-      t.integer :broker_id
+      t.integer :user_id
 
       t.timestamps
     end

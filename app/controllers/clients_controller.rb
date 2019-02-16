@@ -11,6 +11,22 @@ class ClientsController < ApplicationController
   # GET /clients/1.json
   def show
     @policies = @client.policies.order(created_at: :desc)
+    @firehalls = FireHall.all
+
+    @firehall_near = []
+    @firehall_close = []
+    @firehall_far = []
+
+    @firehalls.each do |hall|
+      if hall.distance_to([@client.latitude, @client.longitude], :km) < 2.5
+        @firehall_near << hall
+      elsif hall.distance_to([@client.latitude, @client.longitude], :km) >= 2.5 && hall.distance_to([@client.latitude, @client.longitude], :km) < 5
+        @firehall_close << hall
+      elsif hall.distance_to([@client.latitude, @client.longitude], :km) >= 5
+        @firehall_far << hall
+      end
+    end
+    
   end
 
   # GET /clients/new
@@ -26,7 +42,7 @@ class ClientsController < ApplicationController
   # POST /clients.json
   def create
     @client = Client.new(client_params)
-    @client.broker_id = current_user.id
+    @client.user_id = current_user.id
     respond_to do |format|
       if @client.save
         format.html { redirect_to @client, notice: 'Client was successfully created.' }
@@ -63,12 +79,10 @@ class ClientsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_client
       @client = Client.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
       params.require(:client).permit(:first_name,
       :last_name,
