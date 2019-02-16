@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-<h1><%=@client.full_name%>'s' Details</h1>
+<h1><%=@client.full_name%>'s Details</h1>
 
 <p>
     <strong> Phone Number: </strong>
@@ -27,68 +27,131 @@
 <% else %>
     <p> Client Does Not Wish to be Contacted About New Products and Offerings </p>
 <% end %>
-<%= link_to 'Edit Client Details', edit_client_path(@client) %> |
-<%= link_to 'Back to Client Directory', clients_path %>
+<%= link_to 'Edit Client Details', edit_client_path(@client), class: "btn-sm btn-warning" %>
+<%= link_to 'Back to Client Directory', clients_path, class: "btn-sm btn-success" %>
 
 <br>
 <h2>Client Exposures</h2>
+
 <div id="map"></div>
-
+<div>
+  <%#= select_tag('Hazards', options_for_select([['Neighbourhoods'], ['Fire Exposure']])) %>
+  <input type="checkbox" name="neighbourhoods" id="neighbourhoods"> Neighbourhood Boundaries <span>
+  <input type="checkbox" name="fire_halls" id="fire_halls"> Fire Hall Proximity
+  </span>
+</div>
 <br>
-
-<%= link_to 'Add a Policy', new_client_policy_path(@client) %>
+  <h3>Fire Hall Locations</h3>
+  <p id="near">Within 2.5kms</p>
+  <p>
+    <ul>
+    <%@firehall_near.each do |hall|%>
+      <li>
+        Fire Hall <%= hall.fire_hall_name%>: <%= hall.address%> 
+        <ul>
+          <li><%= (hall.distance_to([@client.latitude, @client.longitude], :km)).round(1) %>kms away</li>
+        </ul>
+      </li>
+    <% end %>
+    </ul>
+  </p>
+  <p id="close">Within 5.0kms</p>
+  <p>
+    <ul>
+    <%@firehall_close.each do |hall|%>
+      <li>
+        Fire Hall <%= hall.fire_hall_name%>: <%= hall.address%>
+        <ul>
+          <li><%= (hall.distance_to([@client.latitude, @client.longitude], :km)).round(1) %>kms away</li>
+        </ul>
+      </li>
+    <% end %>
+    </ul>
+  </p>
+  <p id="far">More than 5kms</p>
+  <p>
+    <ul>
+    <%@firehall_far.each do |hall|%>
+      <li>
+        Fire Hall <%= hall.fire_hall_name%>: <%= hall.address%>
+        <ul>
+          <li><%= (hall.distance_to([@client.latitude, @client.longitude], :km)).round(1) %>kms away</li>
+        </ul>
+      </li>
+    <% end %>
+    </ul>
+  </p>
+<br>
 <h4>Existing Policies</h4>
+<%= link_to 'Add a Policy', new_client_policy_path(@client), class: "btn-sm btn-success" %>
 <div>
 <% @policies.each do |policy| %>
     <p>Policy Number: <%= policy.policy_number%></p>
     <p>Policy Premium: <%= number_to_currency(policy.annual_premium, {precision: 2})%></p>
-    <%= link_to 'Edit Policy', edit_client_policy_path(@client.id, policy.id), class: %>
-    <%= link_to 'Delete Policy', client_policy_path(@client.id, policy.id), method: :delete %>
+    <%= link_to 'Edit Policy', edit_client_policy_path(@client.id, policy.id), class: "btn-sm btn-warning" %>
+    <%= link_to 'Delete Policy', client_policy_path(@client.id, policy.id), method: :delete, class: "btn-sm btn-danger" %>
 <% end %>
 </div>
 
-<%#= javascript_pack_tag 'initMap' %>
-
 <script>
-    
+let markerArray = [];
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    <%# default center on Vancouver %>
-    center: new google.maps.LatLng(49.2827, -123.12073),
+    center: new google.maps.LatLng(<%= @client.latitude %>, <%= @client.longitude %>),
     zoom: 14,
     mapTypeId: 'terrain'
-    
   });
-  // <%#destination to be the client's coordinates%>
-  let destination = {lat: 49.2827, lng: -123.12073};
-  nearest fire station
-  let origin = {lat: 49.2757557879496,	lng: -123.089633564924};
+  
+  let marker = new google.maps.Marker({
+        map: map,
+        position: map.center
+      });
 
-  // <%#put the distance into a pop-up for each marker%>
-  let service = new google.maps.DistanceMatrixService;
-        service.getDistanceMatrix({
-          origins: [origin],
-          destinations: [destination],
-          travelMode: 'DRIVING',
-          unitSystem: google.maps.UnitSystem.METRIC,
-          avoidHighways: false,
-          avoidTolls: false
-        }, function(response, status) {
-          if (status !== 'OK') {
-            alert('Error was: ' + status);
-          } else { 
-            for(let i = 0; i < response.originAddresses.length; i++){
-              let results = response.rows[i].elements;
-              for(let j = 0; j < results.length; j++){
-                console.log(results[j].distance.text)
-              }
-            }
-            }
-          })
+  let clientInfoWindow = new google.maps.InfoWindow({
+    content: '<%= @client.full_address%>'
+    });
+    marker.addListener('click', function() {
+      clientInfoWindow.open(map, marker);
+    });
 
+    function fireHallMarkers(props){
+      let marker = new google.maps.Marker({
+        map: map,
+        position: props.coords,
+        icon: '/assets/fire-station.svg'
+      });
+  
+      let fireHallInfoWindow = new google.maps.InfoWindow({
+      content: props.content,
+      address: props.address
+      });
+  
+      marker.addListener('click', function() {
+        fireHallInfoWindow.open(map, marker);
+      });
+      markerArray.push(marker);
+    }
 
-  let geocoder = new google.maps.Geocoder();
-  geocodeAddress(geocoder, map);
+  document.querySelector("#fire_halls").addEventListener("click", () => {
+    let fireHallOrigins = [];
+    if( document.querySelector("#fire_halls").checked == true){
+    <% @firehalls.each do |hall| %>
+      fireHallOrigins.push({coords: {lat: <%= hall.to_coordinates.first %>, lng: <%=hall.to_coordinates.last%>}, content:'<div> Fire Hall <%= hall.fire_hall_name %> <div/> '+ '<div><%= hall.address %> <div/>' })
+    <% end %>
+
+    for(let i = 0; i < fireHallOrigins.length; i++){
+      fireHallMarkers(fireHallOrigins[i]);
+    }
+    } else if(document.querySelector("#fire_halls").checked == false) {
+      for (var i = 0; i < markerArray.length; i++) {
+        markerArray[i].setMap(null);
+        }
+        
+      };
+    }
+  )
+  
+  
   
   // Overlays
   let neighbourhoods = 'https://data.vancouver.ca/download/kml/cov_localareas.kml';
@@ -97,31 +160,69 @@ function initMap() {
         preserveViewport: true,
         map: map
     });
+  
+  // let destination = {lat: <%= @client.latitude %>, lng: <%= @client.longitude %>};
+
+  // put the distance into a pop-up for each marker
+  // let service = new google.maps.DistanceMatrixService;
+  //       service.getDistanceMatrix({
+  //         origins: origins,
+  //         destinations: [destination],
+  //         travelMode: 'DRIVING',
+  //         unitSystem: google.maps.UnitSystem.METRIC,
+  //         avoidHighways: false,
+  //         avoidTolls: false
+  //       }, function(response, status) {
+	// 				console.log('TCL: initMap -> response', response)
+  //         if (status !== 'OK') {
+  //           alert('Error was: ' + status);
+  //         } else { 
+  //           let firehalls = response.originAddresses;
+  //           let nearBy = document.getElementById('near');
+  //           let closeBy = document.getElementById('close');
+  //           let farAway = document.getElementById('far');
+  //           nearBy.innerHTML = '';
+  //           closeBy.innerHTML = '';
+  //           farAway.innerHTML = '';
+  //           for(let i = 0; i < response.originAddresses.length; i++){
+  //             let results = response.rows[i].elements;
+  //             firehalls[i]
+  //             for(let j = 0; j < results.length; j++){
+  //               //console.log(results[j].distance)
+  //               if(results[j].distance.value < 2500){
+  //                 //console.log(results[j]);
+  //                 nearBy.innerHTML += firehalls[i]
+  //               }
+  //             }
+  //           }
+  //           }
+  //         })
+
+
+  // let geocoder = new google.maps.Geocoder();
+  // geocodeAddress(geocoder, map);
+  
+  
     
-  let fireHalls = 'https://data.vancouver.ca/download/kml/fire_halls.kmz';
-  let kmlLayer2 = new google.maps.KmlLayer(fireHalls, {
-      suppressInfoWindows: true,
-      preserveViewport: true,
-      map: map
-  });
-
-  // let blockOutlines = "https://data.vancouver.ca/download/kml/district_lots.kmz";
-  // let kmlLayer3 = new google.maps.KmlLayer(blockOutlines, {
+  // let fireHalls = 'https://data.vancouver.ca/download/kml/fire_halls.kmz';
+  // let kmlLayer2 = new google.maps.KmlLayer(fireHalls, {
   //     suppressInfoWindows: true,
   //     preserveViewport: true,
   //     map: map
   // });
 
-  // let subdivisions = "https://data.vancouver.ca/download/kml/zoning_districts.kmz";
-  // let kmlLayer4 = new google.maps.KmlLayer(subdivisions, {
-  //     suppressInfoWindows: true,
-  //     preserveViewport: true,
-  //     map: map
+  // kmlLayer2.addListener('click', function(kmlEvent) {
+	// 	console.log('TCL: initMap -> kmlEvent', kmlEvent.latLng)
+  //   let text = kmlEvent.featureData.description;
+  //   let infowindow = new google.maps.InfoWindow({
+  //     content: text
+  //   });
+  //   infowindow.open(map);
   // });
-
 }
 
-
+{/* 
+<!-- Geocode with Google via DOM -->
 function geocodeAddress(geocoder, resultsMap) {
   let clientLocation = (document.getElementById("street_address").innerText) + (document.getElementById("city").innerText) ;
   geocoder.geocode({'address': clientLocation}, function(results, status) {
@@ -136,8 +237,8 @@ function geocodeAddress(geocoder, resultsMap) {
       alert('Geocode was not successful for the following reason: ' + status);
     }
   });
-}
-
+} 
+*/}
 </script>
 
 <script async defer
