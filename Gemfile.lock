@@ -47,6 +47,8 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.6.0)
+      public_suffix (>= 2.0.2, < 4.0)
     arel (9.0.0)
     autoprefixer-rails (9.4.7)
       execjs
@@ -78,6 +80,8 @@ GEM
     concurrent-ruby (1.1.4)
     connection_pool (2.2.2)
     crass (1.0.4)
+    domain_name (0.5.20180417)
+      unf (>= 0.0.5, < 1.0.0)
     erubi (1.8.0)
     execjs (2.7.0)
     faker (1.9.3)
@@ -89,6 +93,15 @@ GEM
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hirb (0.7.3)
+    http (4.0.5)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 2.0)
+      http_parser.rb (~> 0.6.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    http-form_data (2.1.1)
+    http_parser.rb (0.6.0)
     i18n (1.5.3)
       concurrent-ruby (~> 1.0)
     jbuilder (2.8.0)
@@ -129,6 +142,7 @@ GEM
       method_source (~> 0.9.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
+    public_suffix (3.0.3)
     puma (3.12.0)
     rack (2.0.6)
     rack-cors (1.0.2)
@@ -215,6 +229,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.1.20)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.5)
     web-console (3.7.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
@@ -242,6 +259,7 @@ DEPENDENCIES
   faker
   geocoder
   hirb
+  http
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
