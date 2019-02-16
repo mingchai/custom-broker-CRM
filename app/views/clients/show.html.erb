@@ -36,8 +36,12 @@
 <div id="map"></div>
 <div>
   <%#= select_tag('Hazards', options_for_select([['Neighbourhoods'], ['Fire Exposure']])) %>
-  <input type="checkbox" name="neighbourhoods" id="neighbourhoods"> Neighbourhood Boundaries <span>
-  <input type="checkbox" name="fire_halls" id="fire_halls"> Fire Hall Proximity
+  <input type="checkbox" name="neighbourhoods" id="neighbourhoods"> <label for="neighbourhoods"> Neighbourhood Boundaries </label>
+  <span>
+  <input type="checkbox" name="fire_halls" id="fire_halls"> <label for="fire_halls"> Fire Hall Proximity </label>
+  </span>
+  <span>
+  <input type="checkbox" name="fire_hydrants" id="fire_hydrants"> <label for="fire_hydrants"> Fire Hydrant Proximity </label>
   </span>
 </div>
 <button id="firehall-details">Fire Hall Details</button>
@@ -119,17 +123,23 @@ function initMap() {
     });
 
   let neighbourhoods = 'https://data.vancouver.ca/download/kml/cov_localareas.kml';
-  let kmlLayer = new google.maps.KmlLayer(neighbourhoods, {
+  let neighbourhoodLayer = new google.maps.KmlLayer(neighbourhoods, {
         suppressInfoWindows: true,
         preserveViewport: true,
     });
 
+  // let fireHydrants = 'http://data.vancouver.ca/download/kml/water_hydrants.kmz';
+  // let hydrarntLayer = new google.maps.KmlLayer(fireHydrants, {
+  //       suppressInfoWindows: true,
+  //       preserveViewport: true
+  //   });
+
   function generateKML(){
-    kmlLayer.setMap(map)
+    neighbourhoodLayer.setMap(map)
   }
 
   function removeKML(){
-    kmlLayer.setMap(null)
+    neighbourhoodLayer.setMap(null)
   }
 
 document.querySelector("#neighbourhoods").addEventListener("change", () => {

@@ -18,9 +18,9 @@ class ClientsController < ApplicationController
     @firehall_far = []
 
     @firehalls.each do |hall|
-      if hall.distance_to([@client.latitude, @client.longitude], :km) < 2.5
+      if hall.distance_to([@client.latitude, @client.longitude], :km) <= 2.5
         @firehall_near << hall
-      elsif hall.distance_to([@client.latitude, @client.longitude], :km) >= 2.5 && hall.distance_to([@client.latitude, @client.longitude], :km) < 5
+      elsif hall.distance_to([@client.latitude, @client.longitude], :km) > 2.5 && hall.distance_to([@client.latitude, @client.longitude], :km) < 5
         @firehall_close << hall
       elsif hall.distance_to([@client.latitude, @client.longitude], :km) >= 5
         @firehall_far << hall
