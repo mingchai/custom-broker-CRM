@@ -3,7 +3,7 @@
 
 <p>
     <strong> Phone Number: </strong>
-    <span id="phone_number"><%= @client.phone_number %></span>
+    <span id="phone_number"><%= link_to @client.phone_number, client_call_path(@client), method: :post %></span>
 </p>
 <p>
     <strong>Email:</strong> 
@@ -48,6 +48,7 @@
 <br>
 <div id="firehall-list" hidden>
   <h3>Fire Hall Locations</h3>
+  <p>The <strong> closest fire hall</strong> is Fire Hall <%= @firehall_closest.fire_hall_name%> located at <%= @firehall_closest.address %> located <%= @firehall_closest.distance_to([@client.latitude, @client.longitude], :km).round(1)%>kms away</p>
   <p id="near">Within 2.5kms</p>
   <p>
     <ul>

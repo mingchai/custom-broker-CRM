@@ -13,11 +13,18 @@ class ClientsController < ApplicationController
     @policies = @client.policies.order(created_at: :desc)
     @firehalls = FireHall.all
 
+    closest = Float::INFINITY
+    @firehall_closest
     @firehall_near = []
     @firehall_close = []
     @firehall_far = []
 
     @firehalls.each do |hall|
+      if hall.distance_to([@client.latitude, @client.longitude], :km) < closest
+        closest = hall.distance_to([@client.latitude, @client.longitude], :km)
+        @firehall_closest = hall
+      end
+
       if hall.distance_to([@client.latitude, @client.longitude], :km) <= 2.5
         @firehall_near << hall
       elsif hall.distance_to([@client.latitude, @client.longitude], :km) > 2.5 && hall.distance_to([@client.latitude, @client.longitude], :km) < 5
@@ -76,6 +83,30 @@ class ClientsController < ApplicationController
       format.html { redirect_to clients_url, notice: 'Client was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def call
+    # render json: params
+      @client = Client.find params[:client_id]
+      client = Twilio::REST::Client.new Rails.application.credentials.twilio_account_sid, Rails.application.credentials.twilio_auth_token
+      call = client.calls.create(
+        to:   "+15879869874",
+        from: Rails.application.credentials.twilio_phone_number,
+        url: "https://example.herokuapp.com/connect/#{Rails.application.credentials.twilio_phone_number}"
+      )
+
+      respond_to do |format|
+        format.html { redirect_to @client, notice: 'Call in progress!' }
+      end
+  end
+
+  def connect
+    response = Twilio::TwiML::VoiceResponse.new do |r|
+      r.say('Thanks for contacting our sales department. Our '\
+        'next available representative will take your call.', voice: 'alice')
+      r.dial number: Rails.application.credentials.twilio_contact
+    end
+    render xml: response.to_s
   end
 
   private
