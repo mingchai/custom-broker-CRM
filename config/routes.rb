@@ -3,10 +3,13 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   resources :users
   resources :clients do
+    post("/call", to: "clients#call")
     resources :policies #do
       # resources :coverages, except: [:show]
     # end
   end
+
+  resources :tokens, only: [:create]
   
   namespace :api, defaults: {format: :json} do
     namespace :v1 do

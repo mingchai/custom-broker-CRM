@@ -5,6 +5,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= javascript_include_tag 'https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js' %>
+    <%= javascript_include_tag 'https://media.twiliocdn.com/sdk/js/chat/v3.0/twilio-chat.min.js' %>
+
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
@@ -29,5 +32,32 @@
     <div class="m-4">
     <%= yield %>
     </div>
+    <footer class="container">
+    <div id="chat-container" class="fixed-bottom">
+      <div id="chat-header">
+        <h4>Chat</h4>
+      </div>
+        <div class="messages" hidden>
+          <div class="message">
+            <span class="user">User:</span> Let's chat!
+          </div>
+        </div>
+        <form id="chat-input" hidden>
+          <label for="message">Message:</label>
+          <input type="text-area" id="message" placeholder="Enter your message..." />
+          <button type="submit">Send</button>
+        </form>
+    </div>
+  </footer>
   </body>
+
+  <script>
+    document.querySelector("#chat-header").addEventListener("click", () =>{
+      let chatBody = document.querySelector(".messages");
+      let chatInput = document.querySelector("#chat-input");
+      chatBody.toggleAttribute("hidden");
+      chatInput.toggleAttribute("hidden");
+    })
+  </script>
+  
 </html>

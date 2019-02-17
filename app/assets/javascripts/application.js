@@ -16,3 +16,8 @@
 //= require rails-ujs
 //= require activestorage
 //= require_tree .
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.querySelector("#chat-container")) {
+    window.chat = new Chat();
+  }
+});
