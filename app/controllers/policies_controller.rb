@@ -32,6 +32,8 @@ class PoliciesController < ApplicationController
 
     respond_to do |format|
       if @policy.save
+        message = "Hi, #{@client.first_name}! A policy with policy number '#{@policy.policy_number}' was created under your account."
+        TwilioTextMessenger.new(message).call
         format.html { redirect_to client_path(@client), notice: 'Policy was successfully created.' }
         format.json { render :show, status: :created, location: @policy }
       else
@@ -46,7 +48,9 @@ class PoliciesController < ApplicationController
   def update
     respond_to do |format|
       if @policy.update(policy_params)
-        format.html { redirect_to client_path(@policy.client), notice: 'Policy was successfully updated.' }
+        message = "Hi, #{@policy.client.first_name}! Policy number '#{@policy.policy_number}' was recently updated. Please login to your account to see full details."
+        TwilioTextMessenger.new(message).call
+        format.html { redirect_to client_path(@policy.client), notice: 'Policy was successfully updated.'}
         format.json { render :show, status: :ok, location: @policy }
       else
         format.html { render :edit }
@@ -59,6 +63,8 @@ class PoliciesController < ApplicationController
   # DELETE /policies/1.json
   def destroy
     @policy.destroy
+    message = "Policy number '#{@policy.policy_number}' was removed from your account. Please login to your account to see full details."
+        TwilioTextMessenger.new(message).call
     respond_to do |format|
       format.html { redirect_to client_url(@policy.client_id), notice: 'Policy was successfully destroyed.' }
       format.json { head :no_content }
