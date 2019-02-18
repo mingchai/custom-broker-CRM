@@ -1,0 +1,32 @@
+#chat-container {
+  max-width: 18em;
+  padding: 10px;
+  margin: 2% 2% 0 80%;
+  border: thin solid black;
+  background-color: white;
+}
+
+
+.messages {
+  border: 1px solid rgba(0, 0, 0, .1);
+  border-radius: 3px;
+  height: 10em;
+  margin: 0 0 .5em;
+  overflow-y: scroll;
+  padding: .5em;
+}
+
+.message {
+  .user {
+    font-weight: bold;
+
+    &.me {
+      color: #b6191e;
+    }
+  }
+}
+
+button {
+  background-color: orange;
+  width: 20%;
+}
