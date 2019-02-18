@@ -32,6 +32,8 @@
     <div class="m-4">
     <%= yield %>
     </div>
+    <% if user_signed_in? %>
+    <%= stylesheet_link_tag 'footer' %>
     <footer class="container">
     <div id="chat-container" class="fixed-bottom">
       <div id="chat-header">
@@ -49,15 +51,18 @@
         </form>
     </div>
   </footer>
+  <% end %>
   </body>
 
   <script>
+  <% if user_signed_in? %>
     document.querySelector("#chat-header").addEventListener("click", () =>{
       let chatBody = document.querySelector(".messages");
       let chatInput = document.querySelector("#chat-input");
       chatBody.toggleAttribute("hidden");
       chatInput.toggleAttribute("hidden");
     })
+  <% end %>
   </script>
   
 </html>
