@@ -36,3 +36,39 @@ nav > ul {
 #content{
   margin-left: 180px;
 }
+
+@media only screen and (max-width: 850px) {
+  #sidenav {
+    height: 100vh;
+    width: 110px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #163C66;
+    overflow-x: hidden;
+  }
+
+  nav > ul > li > a{
+    padding: 6px 8px 6px 4px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+  }
+
+  nav > ul{
+    padding-left: 10px;
+  }
+
+  #logo{
+    height: 50px;
+    width: 50px;
+    filter: invert(1);
+    margin: 0 0 30px 30px;
+  }
+
+  #content { 
+    margin-left: 240px; 
+  }
+}

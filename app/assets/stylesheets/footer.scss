@@ -1,5 +1,5 @@
 #chat-container {
-  max-width: 18em;
+  width: 284px;
   padding: 5px;
   margin: 2% 2% 0 80%;
   border: thin solid black;
@@ -31,7 +31,7 @@
   }
 }
 
-button {
+#chat-button {
   background-color: orange;
   width: 28%;
   border-radius: 3px;
@@ -43,4 +43,53 @@ button {
 
 #chat-input{
   color: white;
+}
+
+@media only screen and (max-width: 850px) {
+  #chat-container {
+    width: 284px;
+    padding: 5px;
+    margin: 2% 2% 0 60%;
+    border: thin solid black;
+    background-color: #163C66;
+  }
+  
+  #chat-input > input{
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 3px;
+  }
+  
+  .messages {
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 3px;
+    height: 247px;
+    margin: 0 0 5px;
+    overflow-y: scroll;
+    padding: 5px;
+    background-color: white;
+  }
+  
+  .message {
+    .user {
+      font-weight: bold;
+  
+      &.me {
+        color: #b6191e;
+      }
+    }
+  }
+  
+  #chat-button {
+    background-color: orange;
+    width: 28%;
+    border-radius: 3px;
+  }
+  
+  #chat-header{
+    color: white;
+  }
+  
+  #chat-input{
+    color: white;
+  }
 }

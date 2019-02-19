@@ -1,0 +1,9 @@
+#home-image{
+  background: url(/assets/corridor.jpg) no-repeat center; 
+  background-size: cover; 
+  height: 100vh; 
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
