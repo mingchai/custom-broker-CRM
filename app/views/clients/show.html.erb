@@ -45,6 +45,8 @@
   <input type="checkbox" name="fire_hydrants" id="fire_hydrants"> <label for="fire_hydrants"> Fire Hydrant Proximity </label>
   </span>
 </div>
+
+<%if @client.geocoded? %>
 <button id="firehall-details">Fire Hall Details</button>
 <br>
 <div id="firehall-list" hidden>
@@ -90,6 +92,9 @@
     </ul>
   </p>
 </div>
+<% else %>
+<h5>Firehall info could not be retrieved. Please ensure client's address is correct.</h5>
+<% end %>
 <br>
 <h4>Existing Policies</h4>
 <%= link_to 'Add a Policy', new_client_policy_path(@client), class: "btn-sm btn-success" %>
