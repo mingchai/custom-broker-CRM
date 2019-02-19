@@ -6,8 +6,12 @@ Rails.application.routes.draw do
     post("/call", to: "clients#call")
     resources :policies #do
       # resources :coverages, except: [:show]
-    # end
+     #end
   end
+
+  resources :policies, only: [] do
+    resources :payments, only: [:new, :create]
+   end
 
   resources :tokens, only: [:create]
   

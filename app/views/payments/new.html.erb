@@ -1,0 +1,31 @@
+<%= stylesheet_link_tag 'payments' %>
+<main class="container-fluid">
+  <% flash.each do |type, message|%>
+    <div class="alert alert-<%=type%>">
+      <%= message %>
+    </div>
+  <% end %>
+</main>
+
+<h1>Make Payment for Policy #<%= @policy.policy_number %></h1>
+<h3>Charge of <%= number_to_currency(@policy.annual_premium, {precision: 2})%></h3>
+
+<form id="stripe-form">
+  <div class="form-group">
+    <label for="card-element">Credit or debit card</label>
+    <div id="card-element">
+      <!-- A Stripe Element will be placed here! -->
+    </div>
+
+    <div id="card-errors">
+      <!-- Used to display Element errors. -->
+    </div>
+  </div>
+
+  <button type="submit">Make Premium Payment</button>
+  <%= link_to 'Cancel', client_path(@policy.client), class:" btn btn-danger", data:{confirm:"Are you sure you want to cancel? Payment will not be posted to client's account."} %>
+</form>
+
+<%= form_tag(policy_payments_path(@policy), id: "new-payment-form") do %>
+  <%= hidden_field_tag :stripe_token %>
+<% end %>

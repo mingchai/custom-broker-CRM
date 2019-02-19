@@ -13,24 +13,26 @@ class ClientsController < ApplicationController
     @policies = @client.policies.order(created_at: :desc)
     @firehalls = FireHall.all
 
-    closest = Float::INFINITY
-    @firehall_closest
-    @firehall_near = []
-    @firehall_close = []
-    @firehall_far = []
+    if @client.geocoded?
+      closest = Float::INFINITY
+      @firehall_closest
+      @firehall_near = []
+      @firehall_close = []
+      @firehall_far = []
 
-    @firehalls.each do |hall|
-      if hall.distance_to([@client.latitude, @client.longitude], :km) < closest
-        closest = hall.distance_to([@client.latitude, @client.longitude], :km)
-        @firehall_closest = hall
-      end
+      @firehalls.each do |hall|
+        if hall.distance_to([@client.latitude, @client.longitude], :km) < closest
+          closest = hall.distance_to([@client.latitude, @client.longitude], :km)
+          @firehall_closest = hall
+        end
 
-      if hall.distance_to([@client.latitude, @client.longitude], :km) <= 2.5
-        @firehall_near << hall
-      elsif hall.distance_to([@client.latitude, @client.longitude], :km) > 2.5 && hall.distance_to([@client.latitude, @client.longitude], :km) < 5
-        @firehall_close << hall
-      elsif hall.distance_to([@client.latitude, @client.longitude], :km) >= 5
-        @firehall_far << hall
+        if hall.distance_to([@client.latitude, @client.longitude], :km) <= 2.5
+          @firehall_near << hall
+        elsif hall.distance_to([@client.latitude, @client.longitude], :km) > 2.5 && hall.distance_to([@client.latitude, @client.longitude], :km) < 5
+          @firehall_close << hall
+        elsif hall.distance_to([@client.latitude, @client.longitude], :km) >= 5
+          @firehall_far << hall
+        end
       end
     end
     
@@ -52,7 +54,7 @@ class ClientsController < ApplicationController
     @client.user_id = current_user.id
     respond_to do |format|
       if @client.save
-        format.html { redirect_to @client, notice: 'Client was successfully created.' }
+        format.html { redirect_to @client, notice: 'Client record was successfully created.' }
         format.json { render :show, status: :created, location: @client }
       else
         format.html { render :new }
@@ -66,7 +68,7 @@ class ClientsController < ApplicationController
   def update
     respond_to do |format|
       if @client.update(client_params)
-        format.html { redirect_to @client, notice: 'Client was successfully updated.' }
+        format.html { redirect_to @client, notice: 'Client record was successfully updated.' }
         format.json { render :show, status: :ok, location: @client }
       else
         format.html { render :edit }
@@ -80,7 +82,7 @@ class ClientsController < ApplicationController
   def destroy
     @client.destroy
     respond_to do |format|
-      format.html { redirect_to clients_url, notice: 'Client was successfully destroyed.' }
+      format.html { redirect_to clients_url, notice: 'Client record was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -90,7 +92,7 @@ class ClientsController < ApplicationController
       @client = Client.find params[:client_id]
       client = Twilio::REST::Client.new Rails.application.credentials.twilio_account_sid, Rails.application.credentials.twilio_auth_token
       call = client.calls.create(
-        to:   "+15879869874",
+        to:   Rails.application.credentials.twilio_contact,
         from: Rails.application.credentials.twilio_phone_number,
         url: "https://example.herokuapp.com/connect/#{Rails.application.credentials.twilio_phone_number}"
       )

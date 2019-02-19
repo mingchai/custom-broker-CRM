@@ -32,9 +32,10 @@ class PoliciesController < ApplicationController
 
     respond_to do |format|
       if @policy.save
-        message = "Hi, #{@client.first_name}! A policy with policy number '#{@policy.policy_number}' was created under your account."
+        message = "Hi, #{@client.first_name}! A policy with policy # '#{@policy.policy_number}' was created under your account."
         TwilioTextMessenger.new(message).call
-        format.html { redirect_to client_path(@client), notice: 'Policy was successfully created.' }
+        # redirect_to client_path(@client)
+        format.html { redirect_to new_policy_payment_path(@policy), notice: 'Policy was successfully created.' }
         format.json { render :show, status: :created, location: @policy }
       else
         format.html { render :new }
@@ -66,7 +67,7 @@ class PoliciesController < ApplicationController
     message = "Policy number '#{@policy.policy_number}' was removed from your account. Please login to your account to see full details."
         TwilioTextMessenger.new(message).call
     respond_to do |format|
-      format.html { redirect_to client_url(@policy.client_id), notice: 'Policy was successfully destroyed.' }
+      format.html { redirect_to client_url(@policy.client_id), notice: 'Policy was successfully removed.' }
       format.json { head :no_content }
     end
   end
@@ -79,6 +80,6 @@ class PoliciesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def policy_params
-      params.fetch(:policy, {}).permit(:policy_number, :annual_premium)
+      params.fetch(:policy, {}).permit(:policy_number, :annual_premium, :start_date)
     end
 end

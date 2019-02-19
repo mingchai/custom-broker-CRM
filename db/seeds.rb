@@ -1,10 +1,12 @@
 User.destroy_all
 Client.destroy_all
 Policy.destroy_all
+FireHall.destroy_all
 
 ActiveRecord::Base.connection.reset_pk_sequence!('users')
 ActiveRecord::Base.connection.reset_pk_sequence!('clients')
 ActiveRecord::Base.connection.reset_pk_sequence!('policies')
+ActiveRecord::Base.connection.reset_pk_sequence!('firehalls')
 
 PASSWORD = 'test'
 

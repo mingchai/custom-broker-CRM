@@ -1,0 +1,44 @@
+const stripePublishableKey = '<%= Rails.application.credentials.stripe_publishable_key%>';
+const stripe = Stripe(stripePublishableKey);
+const style = {
+  base: {
+    color: '#32325d',
+    lineHeight: '18px',
+    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+    fontSmoothing: 'antialiased',
+    fontSize: '16px',
+    '::placeholder': {
+      color: '#aab7c4'
+    }
+  },
+  invalid: {
+    color: '#fa755a',
+    iconColor: '#fa755a'
+  }
+};
+
+const elements = stripe.elements();
+const card = elements.create("card", {style: style});
+
+document.addEventListener("DOMContentLoaded", () => {
+  card.mount("#card-element");
+
+  const paymentForm = document.getElementById("stripe-form");
+  const newPaymentForm = document.getElementById("new-payment-form");
+
+  paymentForm.addEventListener("submit", event => {
+    event.preventDefault();
+
+    stripe.createToken(card).then(data => {
+      const { error, token } = data;
+
+      if (error) {
+        document.getElementById("card-errors").innerText = error.messages;
+      } else {
+        console.log(token);
+        newPaymentForm.querySelector("#stripe_token").value = token.id;
+        newPaymentForm.submit();
+      }
+    });
+  });
+});

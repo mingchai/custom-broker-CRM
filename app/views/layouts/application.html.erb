@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>CustomCrm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <script src="https://js.stripe.com/v3/"></script>
     <%= javascript_include_tag 'https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js' %>
     <%= javascript_include_tag 'https://media.twiliocdn.com/sdk/js/chat/v3.0/twilio-chat.min.js' %>
 
@@ -62,7 +65,7 @@
           <form id="chat-input" hidden>
             <label for="message">Message:</label> <br>
             <input type="text-area" id="message" placeholder="Enter your message..." />
-            <button type="submit">Send</button>
+            <button type="submit" id="chat-button">Send</button>
           </form>
       </div>
     </footer>

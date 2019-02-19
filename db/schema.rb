@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_15_040956) do
+ActiveRecord::Schema.define(version: 2019_02_19_180018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2019_02_15_040956) do
     t.datetime "updated_at", null: false
     t.date "start_date"
     t.date "expiry_date"
+    t.string "stripe_charge_id"
     t.index ["client_id"], name: "index_policies_on_client_id"
     t.index ["policy_number"], name: "index_policies_on_policy_number", unique: true
   end
