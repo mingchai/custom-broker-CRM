@@ -1,40 +1,42 @@
-nav > ul > li > a{
-  padding: 6px 8px 6px 4px;
-  text-decoration: none;
-  font-size: 24px;
-  color: #818181;
-  display: block;
-}
+@media only screen and (min-width: 850px) {
+  nav > ul > li > a{
+    padding: 6px 8px 6px 4px;
+    text-decoration: none;
+    font-size: 24px;
+    color: #818181;
+    display: block;
+  }
 
-nav > ul > li > a:hover {
-  color: #f1f1f1;
-}
+  nav > ul > li > a:hover {
+    color: #f1f1f1;
+  }
 
-nav > ul {
-  list-style: none;
-}
+  nav > ul {
+    list-style: none;
+  }
 
-#sidenav{
-  height: 100vh;
-  width: 180px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #163C66;
-  overflow-x: hidden;
-  padding-top: 30px;
-}
+  #sidenav{
+    height: 100vh;
+    width: 180px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #163C66;
+    overflow-x: hidden;
+    padding-top: 30px;
+  }
 
-#logo{
-  height: 90px;
-  width: 90px;
-  filter: invert(1);
-  margin: 0 0 30px 40px;
-}
+  #logo{
+    height: 90px;
+    width: 90px;
+    filter: invert(1);
+    margin: 0 0 30px 40px;
+  }
 
-#content{
-  margin-left: 180px;
+  .container{
+    margin-left: 180px;
+  }
 }
 
 @media only screen and (max-width: 850px) {
@@ -47,6 +49,7 @@ nav > ul {
     left: 0;
     background-color: #163C66;
     overflow-x: hidden;
+    padding-top: 30px;
   }
 
   nav > ul > li > a{
@@ -72,3 +75,4 @@ nav > ul {
     margin-left: 240px; 
   }
 }
+

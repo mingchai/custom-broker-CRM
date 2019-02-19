@@ -2,7 +2,9 @@
     <div id="sign-in-container" class="container">
         
         <h1>
-            <%= image_tag 'logo', id:"sign-in-logo" %> <br>
+            <div>
+                <%= image_tag 'logo', id:"sign-in-logo" %>
+            </div>
             Log In
         </h1>
         <%= form_with url: session_path, local: true do |f| %>

@@ -2,9 +2,12 @@
 <p id="notice"><%= notice %></p>
 <div>
   <div>
-    <h1>Clients 
-    <span><%= link_to 'Add Client Profile', new_client_path, class:"btn btn-success float-right" %></span> 
-    </h1>
+    <h1> Clients </h1>
+    <form class="form-inline md-form form-sm">
+      <input class="form-control form-control-sm ml-2 mr-4 w-25 float-right" type="text" placeholder="Lookup Client..." aria-label="Search">
+      <span><%= link_to 'Add Client Profile', new_client_path, class:"btn btn-sm btn-success float-right" %></span> 
+    </form>
+    
   </div>
 
   <div id= "client-container">
@@ -23,3 +26,4 @@
     <% end %>
   </div>
 </div>
+
