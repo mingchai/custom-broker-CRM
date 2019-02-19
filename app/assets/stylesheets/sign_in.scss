@@ -1,5 +1,5 @@
 #background-container{
-  background: url(/assets/umbrella.jpg) no-repeat center; 
+  background: url(/assets/chairs.jpg) no-repeat center; 
   background-size: cover; 
   height: 100vh; 
   position: relative;
@@ -12,12 +12,22 @@
   background: white;
   display: flex;
   width: 30%;
-  height: 80%;
-  border-radius: 5%;
+  height: 50vh;
+  border-radius: 5px;
+}
+
+#sign-in-logo{
+  height: 90px;
+  width: 90px;
 }
 
 .container{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#sign-in-button{
+  background: #2A69B2;
+  color: white;
 }

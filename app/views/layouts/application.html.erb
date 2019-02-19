@@ -13,45 +13,61 @@
   </head>
 
   <body>
-    <header class = "fixed-top">
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <%# MAURO <img id="logo" src="/assets/logo.svg" alt="logo"> GROUP %>
+    <div id="background-container">
+<% if user_signed_in? %>
+  <div class="container">
+    <div class="row-fluid">
+    <header id = "sidenav" class="span4">
+    <%= stylesheet_link_tag 'navbar' %>
+      <nav>
+          <%= link_to image_tag('/assets/logo.svg', id: "logo"), root_path %>
+      <ul>
       <% if user_signed_in? %>
-        <% if current_user.admin == true %>
-          <%= link_to 'New Employee Profile', new_user_path %>
-        <% end %>
-          <%= link_to 'Sign Out', session_path, method: :delete%>
-          <%= link_to 'Employee Directory', users_path %>
-          <%= link_to 'Client Directory', clients_path %>
+          <li>
+            <%= link_to 'Employee Directory', users_path %>
+          </li>
+          <li>
+            <%= link_to 'Client Directory', clients_path %>
+          </li>
+          <li>
+            <%= link_to 'Sign Out', session_path, method: :delete%>
+          </li>
       <% else %>
-        <%= link_to 'Sign In', new_session_path %>
+        <li>
+          <%= link_to 'Sign In', new_session_path %>
+        </li>
       <% end %>
+      </ul>
       </nav>
     </header>
-    <br>
-    <div class="m-4">
-    <%= yield %>
+    <% end %>
+      <section class="span8 m-4">
+        <%= yield %>
+      </section>
     </div>
+  </div>
+
     <% if user_signed_in? %>
     <%= stylesheet_link_tag 'footer' %>
     <footer class="container">
-    <div id="chat-container" class="fixed-bottom">
-      <div id="chat-header">
-        <h4>Chat</h4>
-      </div>
-        <div class="messages" hidden>
-          <div class="message">
-            <span class="user">User:</span> Let's chat!
-          </div>
+      <div id="chat-container" class="fixed-bottom">
+        <div id="chat-header">
+          <h4>Chat</h4>
         </div>
-        <form id="chat-input" hidden>
-          <label for="message">Message:</label>
-          <input type="text-area" id="message" placeholder="Enter your message..." />
-          <button type="submit">Send</button>
-        </form>
-    </div>
-  </footer>
-  <% end %>
+          <div class="messages" hidden>
+            <div class="message">
+              <span class="user">User:</span> Let's chat!
+            </div>
+          </div>
+          <form id="chat-input" hidden>
+            <label for="message">Message:</label> <br>
+            <input type="text-area" id="message" placeholder="Enter your message..." />
+            <button type="submit">Send</button>
+          </form>
+      </div>
+    </footer>
+    <% end %>
+  </div>
   </body>
 
   <script>
@@ -63,6 +79,7 @@
       chatInput.toggleAttribute("hidden");
     })
   <% end %>
+
   </script>
   
 </html>
