@@ -1,15 +1,15 @@
-.card-header{
-  background-color: #163C66;
+.card-header {
+  background-color: #163c66;
   color: white;
 }
 
-table{
+table {
   table-layout: fixed;
   width: 100%;
 }
 
 @media only screen and (max-width: 850px) {
-  table{
+  table {
     table-layout: auto;
     width: 100%;
   }

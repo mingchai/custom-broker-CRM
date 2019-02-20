@@ -1,216 +1,235 @@
+<%= stylesheet_link_tag 'client_show' %>
 <p id="notice"><%= notice %></p>
-<h1><%=@client.full_name%>'s Details</h1>
-
-<p>
-    <strong> Phone Number: </strong>
-    <span id="phone_number"><%= link_to @client.phone_number, client_call_path(@client), method: :post %></span>
-</p>
-<p>
-    <strong>Email:</strong> 
-    <span id= "email"><%= @client.email %></span>
-</p>
-<p>
-    <strong>Street Address:</strong> 
-    <span id= "street_address"><%= @client.street_address %></span>
-</p>
-<p>
-    <strong>City: </strong>
-    <span id="city"><%= @client.city %></span>
-</p>
-<p>
-    <strong>Postal Code:</strong> 
-    <span id="postal_code"><%= @client.postal_code %></span>
-</p>
-<strong>Marketing Consent:</strong>
-<% if @client.marketing_consent? %>
-    <p> Client May Be Contacted About New Products and Offerings </p>
-<% else %>
-    <p> Client Does Not Wish to be Contacted About New Products and Offerings </p>
-<% end %>
-<%= link_to 'Edit Client Details', edit_client_path(@client), class: "btn-sm btn-warning" %>
-<%= link_to 'Back to Client Directory', clients_path, class: "btn-sm btn-success" %>
-
-<br>
-<h2>Client Exposures</h2>
-
-<div id="map"></div>
-<div id= "map-controls">
-  <span>
-  <input type="checkbox" name="neighbourhoods" id="neighbourhoods"> <label for="neighbourhoods"> Neighbourhood Boundaries </label>
-  </span>
-  <span>
-  <input type="checkbox" name="fire_halls" id="fire_halls"> <label for="fire_halls"> Fire Hall Proximity </label>
-  </span>
-  <span>
-  <input type="checkbox" name="fire_hydrants" id="fire_hydrants"> <label for="fire_hydrants"> Fire Hydrant Proximity </label>
-  </span>
+<div class = "card">
+  <div class="card-header">
+    <h2><%=@client.full_name%>'s Details</h2>
+  </div>
+  <div class="card-body">
+    <table>
+      <tr>
+        <td><strong> Phone Number: </strong></td>
+        <td><%= link_to @client.phone_number, client_call_path(@client), method: :post %></td>
+        <td><strong>Email:</strong> </td>
+        <td colspan="2"><%= @client.email %></td>
+      </tr>
+      <tr>
+        <td><strong>Street Address:</strong> </td>
+        <td><%= @client.street_address %> </td>
+        <td><strong>City:</strong></td>
+        <td><%= @client.city %></td>
+        <td><strong>Postal Code:</strong> </td>
+        <td style="margin-left: 5px"><%= @client.postal_code %> </td>
+      </tr>
+      <tr>
+        <td><strong>Marketing Consent:</strong> </td>
+        <% if @client.marketing_consent? %>
+          <td colspan="4"> Client May Be Contacted About New Products and Offerings </td>
+        <% else %>
+          <td colspan="4"> Client Does Not Wish to be Contacted About New Products and Offerings </td>
+        <% end %>
+      </tr>
+    </table>
+    <br>
+    <%= link_to 'Edit Client Details', edit_client_path(@client), class: "btn-sm btn-warning" %>
+    <%= link_to 'Back to Client Directory', clients_path, class: "btn-sm btn-success" %>
+  </div>
 </div>
-
-<%if @client.geocoded? %>
-<button id="firehall-details">Fire Hall Details</button>
 <br>
-<div id="firehall-list" hidden>
-  <h3>Fire Hall Locations</h3>
-  <p>The <strong> closest fire hall</strong> is Fire Hall <%= @firehall_closest.fire_hall_name%> located at <%= @firehall_closest.address %> located <%= @firehall_closest.distance_to([@client.latitude, @client.longitude], :km).round(1)%>kms away</p>
-  <p id="near">Within 2.5kms</p>
-  <p>
-    <ul>
-    <%@firehall_near.each do |hall|%>
-      <li>
-        Fire Hall <%= hall.fire_hall_name%>: <%= hall.address%> 
-        <ul>
-          <li><%= (hall.distance_to([@client.latitude, @client.longitude], :km)).round(1) %>kms away</li>
-        </ul>
-      </li>
+<div class= "card" id="map-container">
+  <div class="card-header">
+    <h2>Client Exposures</h2>
+  </div>
+  <div class="card-body">
+    <div id="map"></div>
+    <div id= "map-controls">
+      <span>
+        <input type="checkbox" name="neighbourhoods" id="neighbourhoods"> <label for="neighbourhoods"> Neighbourhood Boundaries </label>
+      </span>
+      <span>
+        <input type="checkbox" name="fire_halls" id="fire_halls"> <label for="fire_halls"> Fire Hall Proximity </label>
+      </span>
+      <span>
+        <input type="checkbox" name="fire_hydrants" id="fire_hydrants"> <label for="fire_hydrants"> Fire Hydrant Proximity </label>
+      </span>
+    </div>
+    <br>
+    <%if @client.geocoded? %>
+      <button id="firehall-details">Fire Hall Details</button>
+      <br>
+      <br>
+      <div id="firehall-list" hidden>
+        <h3>Fire Hall Locations</h3>
+        <strong> 
+          <p>The closest fire hall is Fire Hall <%= @firehall_closest.fire_hall_name%> located at <%= @firehall_closest.address %>, approximately <%= @firehall_closest.distance_to([@client.latitude, @client.longitude], :km).round(1)%>kms away</p>
+        </strong>
+        <p id="near"><strong> Within 2.5kms </strong></p>
+        <p>
+          <ul>
+            <%@firehall_near.each do |hall|%>
+              <li>
+                Fire Hall <%= hall.fire_hall_name%>: <%= hall.address%>
+                <ul>
+                  <li><%= (hall.distance_to([@client.latitude, @client.longitude], :km)).round(1) %>kms away</li>
+                </ul>
+              </li>
+            <% end %>
+          </ul>
+        </p>
+        <p id="close"><strong> Within 5.0kms </strong></p>
+        <p>
+          <ul>
+            <%@firehall_close.each do |hall|%>
+              <li>
+                Fire Hall <%= hall.fire_hall_name%>: <%= hall.address%>
+                <ul>
+                  <li><%= (hall.distance_to([@client.latitude, @client.longitude], :km)).round(1) %>kms away</li>
+                </ul>
+              </li>
+            <% end %>
+          </ul>
+        </p>
+        <p id="far"><strong> More than 5kms </strong></p>
+        <p>
+          <ul>
+            <%@firehall_far.each do |hall|%>
+              <li>
+                Fire Hall <%= hall.fire_hall_name%>: <%= hall.address%>
+                <ul>
+                  <li><%= (hall.distance_to([@client.latitude, @client.longitude], :km)).round(1) %>kms away</li>
+                </ul>
+              </li>
+            <% end %>
+          </ul>
+        </p>
+      </div>
+    <% else %>
+      <h5>Firehall info could not be retrieved. Please ensure client's address is correct.</h5>
     <% end %>
-    </ul>
-  </p>
-  <p id="close">Within 5.0kms</p>
-  <p>
-    <ul>
-    <%@firehall_close.each do |hall|%>
-      <li>
-        Fire Hall <%= hall.fire_hall_name%>: <%= hall.address%>
-        <ul>
-          <li><%= (hall.distance_to([@client.latitude, @client.longitude], :km)).round(1) %>kms away</li>
-        </ul>
-      </li>
-    <% end %>
-    </ul>
-  </p>
-  <p id="far">More than 5kms</p>
-  <p>
-    <ul>
-    <%@firehall_far.each do |hall|%>
-      <li>
-        Fire Hall <%= hall.fire_hall_name%>: <%= hall.address%>
-        <ul>
-          <li><%= (hall.distance_to([@client.latitude, @client.longitude], :km)).round(1) %>kms away</li>
-        </ul>
-      </li>
-    <% end %>
-    </ul>
-  </p>
+  </div>
 </div>
-<% else %>
-<h5>Firehall info could not be retrieved. Please ensure client's address is correct.</h5>
-<% end %>
 <br>
-<h4>Existing Policies</h4>
-<%= link_to 'Add a Policy', new_client_policy_path(@client), class: "btn-sm btn-success" %>
-<div>
-<% @policies.each do |policy| %>
-    <p>Policy Number: <%= policy.policy_number%></p>
-    <p>Policy Premium: <%= number_to_currency(policy.annual_premium, {precision: 2})%></p>
-    <%= link_to 'Edit Policy', edit_client_policy_path(@client.id, policy.id), class: "btn-sm btn-warning" %>
-    <%= link_to 'Delete Policy', client_policy_path(@client.id, policy.id), method: :delete, class: "btn-sm btn-danger" %>
-<% end %>
+<div class="card">
+  <div class="card-header">
+    <h2>Existing Policies</h2>
+  </div>
+  <div class="card-body">
+    <%= link_to 'Add a Policy', new_client_policy_path(@client), class: "btn-sm btn-success" %>
+    <div>
+      <br>
+      <% @policies.each do |policy| %>
+        <div class="card">
+          <div class="card-body">
+            <p>Policy Number: <%= policy.policy_number%></p>
+            <p>Policy Premium: <%= number_to_currency(policy.annual_premium, {precision: 2})%></p>
+            <%= link_to 'Edit Policy', edit_client_policy_path(@client.id, policy.id), class: "btn-sm btn-warning" %>
+            <%= link_to 'Delete Policy', client_policy_path(@client.id, policy.id), method: :delete, class: "btn-sm btn-danger" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
-
 <script>
-let map;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: new google.maps.LatLng(<%= @client.latitude %>, <%= @client.longitude %>),
-    zoom: 15,
-    mapTypeId: 'terrain'
-  });
+  let map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: new google.maps.LatLng(<%= @client.latitude %>, <%= @client.longitude %>),
+      zoom: 15,
+      mapTypeId: 'terrain'
+    });
   
-  let marker = new google.maps.Marker({
-        map: map,
-        position: map.center,
-        animation: google.maps.Animation.DROP
+    let marker = new google.maps.Marker({
+          map: map,
+          position: map.center,
+          animation: google.maps.Animation.DROP
+        });
+  
+    let clientInfoWindow = new google.maps.InfoWindow({
+      content: '<%= @client.full_address%>'
       });
-
-  let clientInfoWindow = new google.maps.InfoWindow({
-    content: '<%= @client.full_address%>'
-    });
-    marker.addListener('click', function() {
-      clientInfoWindow.open(map, marker);
-    });
-
-  let neighbourhoods = 'https://data.vancouver.ca/download/kml/cov_localareas.kml';
-  let neighbourhoodLayer = new google.maps.KmlLayer(neighbourhoods, {
-        suppressInfoWindows: true,
-        preserveViewport: true,
-    });
-
-  let fireHydrants = 'http://data.vancouver.ca/download/kml/water_hydrants.kmz';
-  let hydrantLayer = new google.maps.KmlLayer(fireHydrants, {
-        suppressInfoWindows: true,
-        preserveViewport: true
-    });
-
-  function generateKML(layer){
-    layer.setMap(map)
-  }
-
-  function removeKML(layer){
-    layer.setMap(null)
-  }
-
-document.querySelector("#neighbourhoods").addEventListener("change", () => {
-    if(document.querySelector("#neighbourhoods").checked == true){
-      generateKML(neighbourhoodLayer);
-    } else if(document.querySelector("#neighbourhoods").checked == false){
-      removeKML(neighbourhoodLayer);
+      marker.addListener('click', function() {
+        clientInfoWindow.open(map, marker);
+      });
+  
+    let neighbourhoods = 'https://data.vancouver.ca/download/kml/cov_localareas.kml';
+    let neighbourhoodLayer = new google.maps.KmlLayer(neighbourhoods, {
+          suppressInfoWindows: true,
+          preserveViewport: true,
+      });
+  
+    let fireHydrants = 'http://data.vancouver.ca/download/kml/water_hydrants.kmz';
+    let hydrantLayer = new google.maps.KmlLayer(fireHydrants, {
+          suppressInfoWindows: true,
+          preserveViewport: true
+      });
+  
+    function generateKML(layer){
+      layer.setMap(map)
     }
-  })
-
-document.querySelector("#fire_hydrants").addEventListener("change", () => {
-    if(document.querySelector("#fire_hydrants").checked == true){
-      generateKML(hydrantLayer);
-    } else if(document.querySelector("#fire_hydrants").checked == false){
-      removeKML(hydrantLayer);
+  
+    function removeKML(layer){
+      layer.setMap(null)
     }
-  })
-}
-
-let markerArray = [];
-function fireHallMarkers(props){
-  let marker = new google.maps.Marker({
-    map: map,
-    position: props.coords,
-    icon: '/assets/fire-station.svg',
-    animation: google.maps.Animation.DROP
-  });
-
-  let fireHallInfoWindow = new google.maps.InfoWindow({
-  content: props.content,
-  address: props.address
-  });
-
-  marker.addListener('click', function() {
-    fireHallInfoWindow.open(map, marker);
-  });
-  markerArray.push(marker);
-  }
-
-document.querySelector("#fire_halls").addEventListener("change", () => {
-  let fireHallOrigins = [];
-    <% @firehalls.each do |hall| %>
-      fireHallOrigins.push({coords: {lat: <%= hall.to_coordinates.first %>, lng: <%=hall.to_coordinates.last%>}, content:'<div> Fire Hall <%= hall.fire_hall_name %> <div/>' + '<div><%= hall.address %> <div/>' + '<div><%= (hall.distance_to([@client.latitude, @client.longitude], :km)).round(1) %>kms away<div/>' })
-    <% end %>
-
-  for(let i = 0; i < fireHallOrigins.length; i++){
-    fireHallMarkers(fireHallOrigins[i]);
+  
+  document.querySelector("#neighbourhoods").addEventListener("change", () => {
+      if(document.querySelector("#neighbourhoods").checked == true){
+        generateKML(neighbourhoodLayer);
+      } else if(document.querySelector("#neighbourhoods").checked == false){
+        removeKML(neighbourhoodLayer);
+      }
+    })
+  
+  document.querySelector("#fire_hydrants").addEventListener("change", () => {
+      if(document.querySelector("#fire_hydrants").checked == true){
+        generateKML(hydrantLayer);
+      } else if(document.querySelector("#fire_hydrants").checked == false){
+        removeKML(hydrantLayer);
+      }
+    })
   }
   
-  if(document.querySelector("#fire_halls").checked == false) {
-    for (var i = 0; i < markerArray.length; i++) {
-      markerArray[i].setMap(null);
-      }
-    };
-  }
-);
-
-document.querySelector("#firehall-details").addEventListener("click", event => {
-  let list = document.querySelector("#firehall-list");
-  list.toggleAttribute('hidden');
-})
-
+  let markerArray = [];
+  function fireHallMarkers(props){
+    let marker = new google.maps.Marker({
+      map: map,
+      position: props.coords,
+      icon: '/assets/fire-station.svg',
+      animation: google.maps.Animation.DROP
+    });
+  
+    let fireHallInfoWindow = new google.maps.InfoWindow({
+    content: props.content,
+    address: props.address
+    });
+  
+    marker.addListener('click', function() {
+      fireHallInfoWindow.open(map, marker);
+    });
+    markerArray.push(marker);
+    }
+  
+  document.querySelector("#fire_halls").addEventListener("change", () => {
+    let fireHallOrigins = [];
+      <% @firehalls.each do |hall| %>
+        fireHallOrigins.push({coords: {lat: <%= hall.to_coordinates.first %>, lng: <%=hall.to_coordinates.last%>}, content:'<div> Fire Hall <%= hall.fire_hall_name %> <div/>' + '<div><%= hall.address %> <div/>' + '<div><%= (hall.distance_to([@client.latitude, @client.longitude], :km)).round(1) %>kms away<div/>' })
+      <% end %>
+  
+    for(let i = 0; i < fireHallOrigins.length; i++){
+      fireHallMarkers(fireHallOrigins[i]);
+    }
+  
+    if(document.querySelector("#fire_halls").checked == false) {
+      for (var i = 0; i < markerArray.length; i++) {
+        markerArray[i].setMap(null);
+        }
+      };
+    }
+  );
+  
+  document.querySelector("#firehall-details").addEventListener("click", event => {
+    let list = document.querySelector("#firehall-list");
+    list.toggleAttribute('hidden');
+  })
 </script>
-
 <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=<%=Rails.application.credentials.google_maps_api_key%>&callback=initMap">
-</script>
+  src="https://maps.googleapis.com/maps/api/js?key=<%=Rails.application.credentials.google_maps_api_key%>&callback=initMap"></script>

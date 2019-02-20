@@ -6,33 +6,33 @@
     <form class="form-inline md-form form-sm">
       <input class="form-control form-control-sm mr-4 w-25 float-right" type="text" placeholder="Lookup Client..." aria-label="Search">
       <span>
-      <%= link_to 'Add Client Profile', new_client_path, class:"btn btn-sm btn-success float-right" %>
-      </span> 
+        <%= link_to 'Add Client Profile', new_client_path, class:"btn btn-sm btn-success float-right" %>
+      </span>
     </form>
-    
   </div>
-<br>
-  <table>
-    <tr id="table-header">
-      <td>Name</td>
-      <td>Phone Number</td>
-      <td>Email</td>
-    </tr>
-    <tbody>
-  <% @clients.each do |client| %>
-  <tr>
-    <td><%= link_to client.full_name, client %></td>
-    <td><%= client.phone_number %></td>
-    <td>
-      <%= client.email %>
-    <td>
-      <%= link_to 'Show More Detail', client, class:"btn-sm btn-info" %>
-      <%= link_to 'Delete Record', client, method: :delete, data: { confirm: 'This action will permanently delete this entry. Are you sure?' }, class:"btn-sm btn-danger" %>
-    </td>
-    </td>
-  </tr>
-    <% end %>
-  </tbody>
-  </table>
+  <br>
+  <div>
+    <table>
+      <tr id="table-header">
+        <td>Name</td>
+        <td>Phone Number</td>
+        <td>Email</td>
+      </tr>
+      <tbody>
+        <% @clients.each do |client| %>
+          <tr>
+            <td><%= link_to client.full_name, client %></td>
+            <td><%= client.phone_number %></td>
+            <td>
+              <%= client.email %>
+              <td>
+                <%= link_to 'Show More Detail', client, class:"btn-sm btn-info" %>
+                <%= link_to 'Delete Record', client, method: :delete, data: { confirm: 'This action will permanently delete this entry. Are you sure?' }, class:"btn-sm btn-danger" %>
+              </td>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
-

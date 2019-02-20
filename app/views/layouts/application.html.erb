@@ -10,79 +10,73 @@
     <script src="https://js.stripe.com/v3/"></script>
     <%= javascript_include_tag 'https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js' %>
     <%= javascript_include_tag 'https://media.twiliocdn.com/sdk/js/chat/v3.0/twilio-chat.min.js' %>
-
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
-
   <body>
     <div id="background-container">
-<% if user_signed_in? %>
-  <div class="container">
-    <div class="row-fluid">
-    <header id = "sidenav" class="span4">
-    <%= stylesheet_link_tag 'navbar' %>
-      <nav>
-          <%= link_to image_tag('/assets/logo.svg', id: "logo"), root_path %>
-      <ul>
       <% if user_signed_in? %>
-          <li>
-            <%= link_to 'Employee Directory', users_path %>
-          </li>
-          <li>
-            <%= link_to 'Client Directory', clients_path %>
-          </li>
-          <li>
-            <%= link_to 'Sign Out', session_path, method: :delete%>
-          </li>
-      <% else %>
-        <li>
-          <%= link_to 'Sign In', new_session_path %>
-        </li>
-      <% end %>
-      </ul>
-      </nav>
-    </header>
-    <% end %>
-      <section class="span8 m-4">
-        <%= yield %>
-      </section>
-    </div>
-  </div>
-
-    <% if user_signed_in? %>
-    <%= stylesheet_link_tag 'footer' %>
-    <footer class="container">
-      <div id="chat-container" class="fixed-bottom">
-        <div id="chat-header">
-          <h4>Chat</h4>
+        <div class="container">
+          <div class="row-fluid">
+            <header id = "sidenav" class="span4">
+              <%= stylesheet_link_tag 'navbar' %>
+              <nav>
+                <%= link_to image_tag('/assets/logo.svg', id: "logo"), root_path %>
+                <ul>
+                  <% if user_signed_in? %>
+                    <li>
+                      <%= link_to 'Employee Directory', users_path %>
+                    </li>
+                    <li>
+                      <%= link_to 'Client Directory', clients_path %>
+                    </li>
+                    <li>
+                      <%= link_to 'Sign Out', session_path, method: :delete%>
+                    </li>
+                  <% else %>
+                    <li>
+                      <%= link_to 'Sign In', new_session_path %>
+                    </li>
+                  <% end %>
+                </ul>
+              </nav>
+            </header>
+          <% end %>
+          <section class="span8 m-4">
+            <%= yield %>
+          </section>
         </div>
-          <div class="messages" hidden>
-            <div class="message">
-              <span class="user">User:</span> Let's chat!
-            </div>
-          </div>
-          <form id="chat-input" hidden>
-            <label for="message">Message:</label> <br>
-            <input type="text-area" id="message" placeholder="Enter your message..." />
-            <button type="submit" id="chat-button">Send</button>
-          </form>
       </div>
-    </footer>
-    <% end %>
-  </div>
+      <% if user_signed_in? %>
+        <%= stylesheet_link_tag 'footer' %>
+        <footer class="container">
+          <div id="chat-container" class="fixed-bottom">
+            <div id="chat-header">
+              <h4>Chat</h4>
+            </div>
+            <div class="messages" hidden>
+              <div class="message">
+                <span class="user">User:</span> Let's chat!
+              </div>
+            </div>
+            <form id="chat-input" hidden>
+              <label for="message">Message:</label> <br>
+              <input type="text-area" id="message" placeholder="Enter your message..." />
+              <button type="submit" id="chat-button">Send</button>
+            </form>
+          </div>
+        </footer>
+      <% end %>
+    </div>
   </body>
-
   <script>
-  <% if user_signed_in? %>
-    document.querySelector("#chat-header").addEventListener("click", () =>{
-      let chatBody = document.querySelector(".messages");
-      let chatInput = document.querySelector("#chat-input");
-      chatBody.toggleAttribute("hidden");
-      chatInput.toggleAttribute("hidden");
-    })
-  <% end %>
-
+    <% if user_signed_in? %>
+      document.querySelector("#chat-header").addEventListener("click", () =>{
+        let chatBody = document.querySelector(".messages");
+        let chatInput = document.querySelector("#chat-input");
+        chatBody.toggleAttribute("hidden");
+        chatInput.toggleAttribute("hidden");
+      })
+    <% end %>
   </script>
-  
 </html>

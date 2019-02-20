@@ -1,4 +1,4 @@
-#client-container{
+#client-container {
   display: flex;
   flex-wrap: wrap;
 }
@@ -11,13 +11,20 @@ tbody tr:nth-child(even) {
   background-color: white;
 }
 
-#table-header{
-  background-color: #163C66;
+#table-header {
+  background-color: #163c66;
   color: white;
 }
 
-table{
-  background-color: #163C66;
+table {
+  background-color: #163c66;
   table-layout: fixed;
   width: 100%;
+}
+
+@media only screen and (max-width: 1200px) {
+  table {
+    table-layout: fixed;
+    width: 1000px;
+  }
 }

@@ -2,64 +2,62 @@
   <% if client.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(client.errors.count, "error") %> prohibited this client from being saved:</h2>
-
       <ul>
-      <% client.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% client.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
   <div class="actions">
-  <div class="form-group">
-  <div class="form-row">
-    <div class = "col-md-6 mb-3">
-      <%=f.label :first_name%>
-      <%=f.text_field :first_name, class: "form-control"%>
-    </div>
-    <div class = "col-md-6 mb-3">
-      <%=f.label :last_name%>
-      <%=f.text_field :last_name, class: "form-control"%>
-    </div>
-  </div>
-  <div class = "form-row">
-    <div class = "col-md-6 mb-3">
-      <%=f.label :phone_number%>
-      <%=f.text_field :phone_number, class: "form-control"%>
-    </div>
-    <div class = "col-md-6 mb-3">
-      <%=f.label :email%>
-      <%=f.email_field :email, class: "form-control"%>
-    </div>
-  </div>
-  <div class = "form-row">
-    <div class = "col-md-6 mb-3">
-      <%=f.label :street_address%>
-      <%=f.text_field :street_address, class: "form-control"%>
-    </div>
-    <div class = "col-md-6 mb-3">
-      <%=f.label :city%>
-      <%=f.text_field :city, class: "form-control"%>
-    </div>
-  </div>
-  <div class = "form-row">
-    <div class = "col-md-3 mb-3">
-      <%=f.label :province%>
-      <%=f.select :province, ['AB', 'BC', 'SK', 'MB','QC','ON','NL','NS','PEI','YT','NT', 'NU'], class: "form-control"%>
-    </div>
-    <div class = "col-md-12 mb-3">
-      <%=f.label :postal_code%>
-      <%=f.text_field :postal_code, class: "form-control"%>
-    </div>
-  </div>
-  <div>
-    <%= f.check_box :marketing_consent, {}, "true", "false" %>
-    <%= f.label :marketing_consent, "Has the client agreed to receive marketing materials and acknowledged that they may opt out at any time?" %>
-  </div>
-  <br>
-    <%= f.submit class:"btn btn-primary"%>
-    <%= link_to 'Cancel', 'javascript:history.back()', data:{confirm: "All changes will not be saved. Are you sure?"}, class:"btn btn-warning" %>
+    <div class="form-group">
+      <div class="form-row">
+        <div class = "col-md-6 mb-3">
+          <%=f.label :first_name%>
+          <%=f.text_field :first_name, class: "form-control"%>
+        </div>
+        <div class = "col-md-6 mb-3">
+          <%=f.label :last_name%>
+          <%=f.text_field :last_name, class: "form-control"%>
+        </div>
+      </div>
+      <div class = "form-row">
+        <div class = "col-md-6 mb-3">
+          <%=f.label :phone_number%>
+          <%=f.text_field :phone_number, class: "form-control"%>
+        </div>
+        <div class = "col-md-6 mb-3">
+          <%=f.label :email%>
+          <%=f.email_field :email, class: "form-control"%>
+        </div>
+      </div>
+      <div class = "form-row">
+        <div class = "col-md-6 mb-3">
+          <%=f.label :street_address%>
+          <%=f.text_field :street_address, class: "form-control"%>
+        </div>
+        <div class = "col-md-6 mb-3">
+          <%=f.label :city%>
+          <%=f.text_field :city, class: "form-control"%>
+        </div>
+      </div>
+      <div class = "form-row">
+        <div class = "col-md-3 mb-3">
+          <%=f.label :province%>
+          <%=f.select :province, ['AB', 'BC', 'SK', 'MB','QC','ON','NL','NS','PEI','YT','NT', 'NU'], class: "form-control"%>
+        </div>
+        <div class = "col-md-12 mb-3">
+          <%=f.label :postal_code%>
+          <%=f.text_field :postal_code, class: "form-control"%>
+        </div>
+      </div>
+      <div>
+        <%= f.check_box :marketing_consent, {}, "true", "false" %>
+        <%= f.label :marketing_consent, "Has the client agreed to receive marketing materials and acknowledged that they may opt out at any time?" %>
+      </div>
+      <br>
+      <%= f.submit class:"btn btn-primary"%>
+      <%= link_to 'Cancel', 'javascript:history.back()', data:{confirm: "All changes will not be saved. Are you sure?"}, class:"btn btn-warning" %>
     </div>
   </div>
 <% end %>

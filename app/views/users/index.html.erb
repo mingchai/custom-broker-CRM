@@ -1,24 +1,21 @@
 <p id="notice"><%= notice %></p>
-
 <h1>
   Users
   <% if current_user.admin == true %>
     <%= link_to 'New Employee Profile', new_user_path, class: "btn btn-primary float-right" %>
   <% end %>
 </h1>
-
-    <% @users.each do |user| %>
-    <div class="card">
-      <div class="card-header">
-        <%= user.full_name %>
-      </div>
-      <div class="card-body">
-        <%= user.email %> <br>
-        <%= link_to 'Show', user, class:"btn-sm btn-warning" %>
-        <%= link_to 'Edit', edit_user_path(user), class:"btn-sm btn-info" %>
-        <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn-sm btn-danger" %>
-      </div>
+<% @users.each do |user| %>
+  <div class="card">
+    <div class="card-header">
+      <%= user.full_name %>
     </div>
-    <% end %>
-
+    <div class="card-body">
+      <%= user.email %> <br>
+      <%= link_to 'Show', user, class:"btn-sm btn-warning" %>
+      <%= link_to 'Edit', edit_user_path(user), class:"btn-sm btn-info" %>
+      <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn-sm btn-danger" %>
+    </div>
+  </div>
+<% end %>
 <br>

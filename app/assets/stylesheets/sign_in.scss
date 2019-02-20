@@ -1,14 +1,14 @@
-#background-container{
-  background: url(/assets/chairs.jpg) no-repeat center; 
-  background-size: cover; 
-  height: 100vh; 
+#background-container {
+  background: url(/assets/chairs.jpg) no-repeat center;
+  background-size: cover;
+  height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-#sign-in-container{
+#sign-in-container {
   background: white;
   display: flex;
   width: 30%;
@@ -16,18 +16,19 @@
   border-radius: 5px;
 }
 
-#sign-in-logo{
+#sign-in-logo {
   height: 90px;
   width: 90px;
+  margin-left: 10px;
 }
 
-.container{
+.container {
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-#sign-in-button{
-  background: #2A69B2;
+#sign-in-button {
+  background: #2a69b2;
   color: white;
 }

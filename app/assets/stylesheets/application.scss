@@ -10,15 +10,15 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  */
- @import "bootstrap";
- @import "scaffolds";
+@import "bootstrap";
+@import "scaffolds";
 
- body{
-   background-color:white;
- }
+body {
+  background-color: white;
+}
 
- button{
+button {
   background-color: orange;
   width: 28%;
   border-radius: 3px;
- }
+}

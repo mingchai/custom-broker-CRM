@@ -6,26 +6,46 @@
     </div>
   <% end %>
 </main>
-
-<h1>Make Payment for Policy #<%= @policy.policy_number %></h1>
-<h3>Charge of <%= number_to_currency(@policy.annual_premium, {precision: 2})%></h3>
-
-<form id="stripe-form">
-  <div class="form-group">
-    <label for="card-element">Credit or debit card</label>
-    <div id="card-element">
-      <!-- A Stripe Element will be placed here! -->
-    </div>
-
-    <div id="card-errors">
-      <!-- Used to display Element errors. -->
-    </div>
+<div class="card">
+  <div class="card-header">
+    <h1>Make Payment for Policy #<%= @policy.policy_number %></h1>
   </div>
-
-  <button type="submit">Make Premium Payment</button>
-  <%= link_to 'Cancel', client_path(@policy.client), class:" btn btn-danger", data:{confirm:"Are you sure you want to cancel? Payment will not be posted to client's account."} %>
-</form>
-
+  <div class="card-body">
+    <h3>Charge of <%= number_to_currency(@policy.annual_premium, {precision: 2})%> to be applied</h3>
+    <form id="stripe-form">
+      <div class="form-group">
+        <label for="card-element">Credit or Debit Card</label>
+        <div id="card-element">
+          <!-- A Stripe Element will be placed here! -->
+        </div>
+        <div id="card-errors">
+          <!-- Used to display Element errors. -->
+        </div>
+      </div>
+      <button type="submit" id="payment" class="btn btn-warning">Make Premium Payment</button>
+      <%= link_to 'Cancel', client_path(@policy.client), class:" btn btn-danger", data:{confirm:"Are you sure you want to cancel? Payment will not be posted to client's account."} %>
+    </form>
+  </div>
+</div>
 <%= form_tag(policy_payments_path(@policy), id: "new-payment-form") do %>
   <%= hidden_field_tag :stripe_token %>
 <% end %>
+<!-- 
+Stripe Checkout Button
+<%= form_tag policy_payments_path(@policy) do %>
+<article>
+  <% if flash[:error].present? %>
+  <div id="error_explanation">
+    <p><%= flash[:error] %></p>
+  </div>
+  <% end %>
+  <label class="amount">
+  <span>Amount: $<%= @policy.annual_premium %></span>
+  </label>
+</article>
+<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+  data-key="<%= Rails.application.credentials.stripe_publishable_key %>"
+  data-description="Annual Premium for Policy <%= @policy.annual_premium%>"
+  data-amount="<%= @policy.annual_premium * 100%>"
+  data-locale="auto"></script>
+<% end %> -->

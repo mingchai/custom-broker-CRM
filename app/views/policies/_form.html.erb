@@ -3,94 +3,80 @@
   <% if policy.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(policy.errors.count, "error") %> prohibited this policy from being saved:</h2>
-
       <ul>
-      <% policy.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% policy.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
-    <div class="actions">
-      <div class="form-group">
-        <div class="form-row">
-          <div class="col-md-6 mb-3">
-            <%= f.label :policy_number, "Policy Number:"%>
-            <%= f.text_field :policy_number, value: SecureRandom.hex(5), class: "form-control"%>
-          </div>
+  <div class="actions">
+    <div class="form-group">
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <%= f.label :policy_number, "Policy Number:"%>
+          <%= f.text_field :policy_number, value: SecureRandom.hex(5), class: "form-control"%>
         </div>
-        <div class="form-row">
-          <div class="col-md-6 mb-3">
-            <%= f.label :start_date%> <br>
-            <%= select_date Date.today, prefix: :start_date, class: "form-control" %>
-          </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <%= f.label :start_date%> <br>
+          <%= select_date Date.today, prefix: :start_date, class: "form-control" %>
         </div>
-  <br>
-  <table>
-    <tr>
-      <th> Coverage: </th>
-      <th style="padding-left: 5px"> Limit: </th>
-      <th style="padding-left: 5px"> Deductible: </th>
-      <th style="padding-left: 5px"> Amount: </th>
-    </tr>
-    <tr>
-      <th> Fire </th>
-        <td style="padding-left: 5px"> <%= f.select :limit, ['$1,000,000', '$2,000,000', '$3,000,000', '$5,000,000', '$10,000,000'], class:"form-control"%> </td>
-        <td style="padding-left: 5px"> 
-          <%= f.select :limit, ['$500', '$1,000', '$1,500', '$2,500', '$5,000'], class:"form-control"%> </td>
-        <td>
-          $<%= f.number_field :limit, value: number_to_currency(rand(50.00..1_000.00), delimiter: '', unit: ''), step: 0.01, id:"amount"%>
-        </td>
-    </tr>
-    <tr>
-      <th> Water Damage </th>
-      <th style="padding-left: 5px"> <%= f.select :limit, ['$1,000,000', '$2,000,000', '$3,000,000', '$5,000,000', '$10,000,000'], class:"form-control"%> </th>
-      <td style="padding-left: 5px"> <%= f.select :limit, ['$500', '$1,000', '$1,500', '$2,500', '$5,000'], class:"form-control"%> </td>
-      <td>
-          $<%= f.number_field :limit, value: number_to_currency(rand(50.00..1_000.00), delimiter: '', unit: ''), step: 0.01, id:"amount"%>
-        </td>
-    </tr>
-    <tr>
-      <th style="padding-right: 5px" > Sewer Back Up </th>
-      <th style="padding-left: 5px"> <%= f.select :limit, ['$1,000,000', '$2,000,000', '$3,000,000', '$5,000,000', '$10,000,000'], class:"form-control"%> </th>
-      <td style="padding-left: 5px"> <%= f.select :limit, ['$500', '$1,000', '$1,500', '$2,500', '$5,000'], class:"form-control"%> </td>
-      <td>
-          $<%= f.number_field :limit, value: number_to_currency(rand(50.00..1_000.00), delimiter: '', unit: ''), step: 0.01, id:"amount"%>
-        </td>
-    </tr>
-    <tr>
-      <th> Earthquake </th>
-      <th style="padding-left: 5px"> <%= f.select :limit, ['$1,000,000', '$2,000,000', '$3,000,000', '$5,000,000', '$10,000,000'], class:"form-control"%> </th>
-      <td style="padding-left: 5px"> <%= f.select :limit, ['5%', '10%', '15%', '20%'], class:"form-control"%> </td>
-      <td>
-        $<%= f.number_field :limit, value: number_to_currency(rand(50.00..1_000.00), delimiter: '', unit: ''), step: 0.01, id:"amount"%>
-        </td>
-    </tr>
-  </table>
-<br>
-  <div class="form-row">
-    <div class="col-md-6 mb-3">
-     <%= f.label :annual_premium, "Estimated Annual Premium:"%> <br>
-     <%= f.number_field :annual_premium, value: number_to_currency(rand(500.00..10_000.00), delimiter: '', unit: ''), step: 0.01, class:"form-control", id:"grand-total"%>
+      </div>
+      <br>
+      <table>
+        <tr>
+          <th> Coverage: </th>
+          <th style="padding-left: 5px"> Limit: </th>
+          <th style="padding-left: 5px"> Deductible: </th>
+          <th style="padding-left: 5px"> Amount: </th>
+        </tr>
+        <tr>
+          <th> Fire </th>
+          <td style="padding-left: 5px"> <%= f.select :limit, ['$1,000,000', '$2,000,000', '$3,000,000', '$5,000,000', '$10,000,000'], class:"form-control"%> </td>
+          <td style="padding-left: 5px">
+            <%= f.select :limit, ['$500', '$1,000', '$1,500', '$2,500', '$5,000'], class:"form-control"%> </td>
+          <td>
+            $<%= f.number_field :limit, value: number_to_currency(rand(50.00..1_000.00), delimiter: '', unit: ''), step: 0.01, id:"amount"%>
+          </td>
+        </tr>
+        <tr>
+          <th> Water Damage </th>
+          <th style="padding-left: 5px"> <%= f.select :limit, ['$1,000,000', '$2,000,000', '$3,000,000', '$5,000,000', '$10,000,000'], class:"form-control"%> </th>
+          <td style="padding-left: 5px"> <%= f.select :limit, ['$500', '$1,000', '$1,500', '$2,500', '$5,000'], class:"form-control"%> </td>
+          <td>
+            $<%= f.number_field :limit, value: number_to_currency(rand(50.00..1_000.00), delimiter: '', unit: ''), step: 0.01, id:"amount"%>
+          </td>
+        </tr>
+        <tr>
+          <th style="padding-right: 5px" > Sewer Back Up </th>
+          <th style="padding-left: 5px"> <%= f.select :limit, ['$1,000,000', '$2,000,000', '$3,000,000', '$5,000,000', '$10,000,000'], class:"form-control"%> </th>
+          <td style="padding-left: 5px"> <%= f.select :limit, ['$500', '$1,000', '$1,500', '$2,500', '$5,000'], class:"form-control"%> </td>
+          <td>
+            $<%= f.number_field :limit, value: number_to_currency(rand(50.00..1_000.00), delimiter: '', unit: ''), step: 0.01, id:"amount"%>
+          </td>
+        </tr>
+        <tr>
+          <th> Earthquake </th>
+          <th style="padding-left: 5px"> <%= f.select :limit, ['$1,000,000', '$2,000,000', '$3,000,000', '$5,000,000', '$10,000,000'], class:"form-control"%> </th>
+          <td style="padding-left: 5px"> <%= f.select :limit, ['5%', '10%', '15%', '20%'], class:"form-control"%> </td>
+          <td>
+            $<%= f.number_field :limit, value: number_to_currency(rand(50.00..1_000.00), delimiter: '', unit: ''), step: 0.01, id:"amount"%>
+          </td>
+        </tr>
+      </table>
+      <br>
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <%= f.label :annual_premium, "Estimated Annual Premium:"%> <br>
+          <%= f.number_field :annual_premium, value: number_to_currency(rand(500.00..10_000.00), delimiter: '', unit: ''), step: 0.01, class:"form-control", id:"grand-total"%>
+        </div>
+      </div>
+      <br>
+      <div>
+        <%= f.submit "Proceed to Payment", class:"btn btn-success", data: {confirm:"Are all coverage options correct?"}%>
+        <%= link_to 'Cancel', 'javascript:history.back()', data:{confirm: "All changes will not be saved. Are you sure?"}, class:"btn btn-danger" %>
+      </div>
     </div>
-  </div>
-  <br>
-  <div>
-    <%= f.submit "Proceed to Payment", class:"btn btn-success", data: {confirm:"Are all coverage options correct?"}%>
-    <%= link_to 'Cancel', 'javascript:history.back()', data:{confirm: "All changes will not be saved. Are you sure?"}, class:"btn btn-danger" %>
-  </div>
-</div>
-<% end %>
-
-<script>
-  // let total = [];
-  // document.querySelectorAll("#amount").forEach(charge => {
-  //   total.push(parseFloat(charge.value));
-  //   console.log(total);
-  // });
-  // let sumTotal = total.reduce((partial_sum, a) => partial_sum + a)); 
-  
-  // document.querySelector("#grand-total").setAttribute("value", sumTotal);
-  
-</script>
+  <% end %>

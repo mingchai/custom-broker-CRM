@@ -1,20 +1,19 @@
 <%= stylesheet_link_tag 'sign_in' %>
-    <div id="sign-in-container" class="container">
-        
-        <h1>
-            <div>
-                <%= image_tag 'logo', id:"sign-in-logo" %>
-            </div>
-            Log In
-        </h1>
-        <%= form_with url: session_path, local: true do |f| %>
-            <div>
-                <%= f.email_field :email, placeholder: "Email", class: "form-control mb-2"%>
-            </div>
-            <div>
-                <%= f.password_field :password, placeholder: "Password", class: "form-control"%>
-            </div>
-            <br>
-            <%=f.submit 'Sign In', class:"form-control", id:"sign-in-button"%>
-        <% end %>
+<div id="sign-in-container" class="container">
+  <h1>
+    <div>
+      <%= image_tag 'logo', id:"sign-in-logo" %>
     </div>
+    Log In
+  </h1>
+  <%= form_with url: session_path, local: true do |f| %>
+    <div>
+      <%= f.email_field :email, placeholder: "Email", class: "form-control mb-2"%>
+    </div>
+    <div>
+      <%= f.password_field :password, placeholder: "Password", class: "form-control"%>
+    </div>
+    <br>
+    <%=f.submit 'Sign In', class:"form-control", id:"sign-in-button"%>
+  <% end %>
+</div>
