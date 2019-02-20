@@ -2,3 +2,22 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+tbody tr:nth-child(odd) {
+  background-color: whitesmoke;
+}
+
+tbody tr:nth-child(even) {
+  background-color: white;
+}
+
+#table-header{
+  background-color: #163C66;
+  color: white;
+}
+
+table{
+  background-color: #163C66;
+  table-layout: fixed;
+  width: 100%;
+}
