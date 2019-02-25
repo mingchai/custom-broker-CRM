@@ -35,7 +35,7 @@ class PoliciesController < ApplicationController
         # message = "Hi, #{@client.first_name}! A policy with policy # '#{@policy.policy_number}' was created under your account."
         # TwilioTextMessenger.new(message).call
         # redirect_to client_path(@client)
-        format.html { redirect_to new_policy_payment_path(@policy), notice: 'Policy was successfully created.' }
+        format.html { redirect_to new_policy_payment_path(@policy), notice: 'Policy setup complete. Awaiting payment.' }
         format.json { render :show, status: :created, location: @policy }
       else
         format.html { render :new }

@@ -37,7 +37,7 @@
 <br>
 <div class= "card" id="map-container">
   <div class="card-header">
-    <h2>Client Exposures</h2>
+    <h2>Factors Affecting Quote</h2>
   </div>
   <div class="card-body">
     <div id="map"></div>
@@ -145,7 +145,7 @@
         });
   
     let clientInfoWindow = new google.maps.InfoWindow({
-      content: '<%= @client.full_address%>'
+      content: '<div><strong><%= @client.full_name%></strong><div> <%= @client.full_address%>'
       });
       marker.addListener('click', function() {
         clientInfoWindow.open(map, marker);
@@ -211,7 +211,7 @@
   document.querySelector("#fire_halls").addEventListener("change", () => {
     let fireHallOrigins = [];
       <% @firehalls.each do |hall| %>
-        fireHallOrigins.push({coords: {lat: <%= hall.to_coordinates.first %>, lng: <%=hall.to_coordinates.last%>}, content:'<div> Fire Hall <%= hall.fire_hall_name %> <div/>' + '<div><%= hall.address %> <div/>' + '<div><%= (hall.distance_to([@client.latitude, @client.longitude], :km)).round(1) %>kms away<div/>' })
+        fireHallOrigins.push({coords: {lat: <%= hall.to_coordinates.first %>, lng: <%=hall.to_coordinates.last%>}, content:'<div> <strong>Fire Hall <%= hall.fire_hall_name %> </strong><div/>' + '<div><%= hall.address %>, Vancouver, BC <div/>' + '<div>Located<strong> <%= (hall.distance_to([@client.latitude, @client.longitude], :km)).round(1) %>kms </strong> away<div/>' })
       <% end %>
   
     for(let i = 0; i < fireHallOrigins.length; i++){

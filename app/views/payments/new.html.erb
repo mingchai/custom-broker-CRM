@@ -1,11 +1,5 @@
 <%= stylesheet_link_tag 'payments' %>
-<main class="container-fluid">
-  <% flash.each do |type, message|%>
-    <div class="alert alert-<%=type%>">
-      <%= message %>
-    </div>
-  <% end %>
-</main>
+<p id="notice"><%= notice %></p>
 <div class="card">
   <div class="card-header">
     <h1>Make Payment for Policy #<%= @policy.policy_number %></h1>
