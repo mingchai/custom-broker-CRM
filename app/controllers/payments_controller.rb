@@ -20,8 +20,10 @@ class PaymentsController < ApplicationController
       message = "Hi, #{client.first_name}! A payment of $#{@policy.annual_premium} was made for policy #'#{@policy.policy_number}' under your account. Please login to your account to see full details."
       TwilioTextMessenger.new(message).call
 
-      flash[:success] = "Policy premium paid!"
-      redirect_to client_path(client)
+      respond_to do |format|
+        format.html{redirect_to client_path(client), notice:"Policy premium paid!"}
+      end
+      
     rescue => error
         logger.error error.full_message
         flash.now[:danger] = "Something went wrong, please try again or contact us"
