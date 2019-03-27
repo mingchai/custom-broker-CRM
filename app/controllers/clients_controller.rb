@@ -92,7 +92,7 @@ class ClientsController < ApplicationController
       @client = Client.find params[:client_id]
       client = Twilio::REST::Client.new Rails.application.credentials.twilio_account_sid, Rails.application.credentials.twilio_auth_token
       call = client.calls.create(
-        to:   Rails.application.credentials.twilio_contact,
+        to:   @client.phone_number,
         from: Rails.application.credentials.twilio_phone_number,
         url: "https://example.herokuapp.com/connect/#{Rails.application.credentials.twilio_phone_number}"
       )
