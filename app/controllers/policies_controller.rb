@@ -50,7 +50,9 @@ class PoliciesController < ApplicationController
     respond_to do |format|
       if @policy.update(policy_params)
         message = "Hi, #{@policy.client.first_name}! Policy number '#{@policy.policy_number}' was recently updated. Please login to your account to see full details."
-        TwilioTextMessenger.new(message).call
+
+        TwilioTextMessenger.new(message).text_client
+
         format.html { redirect_to client_path(@policy.client), notice: 'Policy was successfully updated.'}
         format.json { render :show, status: :ok, location: @policy }
       else
@@ -65,7 +67,10 @@ class PoliciesController < ApplicationController
   def destroy
     @policy.destroy
     message = "Policy number '#{@policy.policy_number}' was removed from your account. Please login to your account to see full details."
-        TwilioTextMessenger.new(message).call
+    phone_number = @policy.client.phone_number
+    
+    TwilioTextMessenger.new(message, phone_number).text_client
+
     respond_to do |format|
       format.html { redirect_to client_url(@policy.client_id), notice: 'Policy was successfully removed.' }
       format.json { head :no_content }
@@ -73,12 +78,10 @@ class PoliciesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_policy
       @policy = Policy.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def policy_params
       params.fetch(:policy, {}).permit(:policy_number, :annual_premium, :start_date)
     end
