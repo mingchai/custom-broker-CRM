@@ -40,7 +40,13 @@
     <h2>Factors Affecting Quote</h2>
   </div>
   <div class="card-body">
-    <div id="map"></div>
+    <div id="map">
+      <% unless @client.geocoded?%>
+        <h5 id="geocode-error">
+          Client address could not be located. Please check address input. 
+        </h5>
+      <% end %>
+    </div>
     <div id= "map-controls">
       <span>
         <input type="checkbox" name="neighbourhoods" id="neighbourhoods"> <label for="neighbourhoods"> Neighbourhood Boundaries </label>
@@ -103,7 +109,9 @@
         </p>
       </div>
     <% else %>
-      <h5>Firehall info could not be retrieved. Please ensure client's address is correct.</h5>
+      <h5 id="geocode-error">
+        Firehall info could not be retrieved. Please ensure client's address is correct.
+      </h5>
     <% end %>
   </div>
 </div>
