@@ -1,24 +1,14 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This app is a custom CRM system designed with the insurance agent in mind. It combines instant messaging, click-to-call, payment processing, and exposure/hazard mapping into a single package. A video walkthrough can be found here: https://youtu.be/ddVXhJuaSTA
 
-Things you may want to cover:
+If you would like to explore the deployed version, you can login with either of the following:
+ - username: guest1@mauro.org
+ - password: guest1
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+ - username: guest2@mauro.org
+ - password: guest2
+ 
+ Two logins have ben provided so that you may test the instant messaging feature.
+ 
+ The following APIs have been used: Stripe, Twilio, and Google Maps.
