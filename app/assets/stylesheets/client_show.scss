@@ -14,3 +14,23 @@ table {
     width: 100%;
   }
 }
+
+#map {
+  height: 360px;
+  width: 100%;
+  overflow: hidden;
+  float: left;
+  border: thin solid #333;
+  border-radius: 3px;
+}
+
+#map-controls {
+  border: thin solid black;
+  background: white;
+  border-radius: 3px;
+  padding-left: 5px;
+}
+
+#geocode-error{
+  color: red;
+}
