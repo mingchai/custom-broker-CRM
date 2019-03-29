@@ -90,11 +90,11 @@ class ClientsController < ApplicationController
   def call
     # render json: params
       @client = Client.find params[:client_id]
-      client = Twilio::REST::Client.new Rails.application.credentials.twilio_account_sid, Rails.application.credentials.twilio_auth_token
+      client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
       call = client.calls.create(
         to:   @client.phone_number,
-        from: Rails.application.credentials.twilio_phone_number,
-        url: "https://example.herokuapp.com/connect/#{Rails.application.credentials.twilio_phone_number}"
+        from: ENV["TWILIO_PHONE_NUMBER"],
+        url: "https://example.herokuapp.com/connect/#{ENV["TWILIO_PHONE_NUMBER"]}"
       )
 
       respond_to do |format|

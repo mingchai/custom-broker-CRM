@@ -1,4 +1,4 @@
-const stripePublishableKey = '<%= Rails.application.credentials.stripe_publishable_key%>';
+const stripePublishableKey = '<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>';
 const stripe = Stripe(stripePublishableKey);
 const style = {
   base: {
