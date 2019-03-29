@@ -50,10 +50,6 @@ GEM
     arel (9.0.0)
     autoprefixer-rails (9.5.0)
       execjs
-    babel-source (5.8.35)
-    babel-transpiler (0.7.0)
-      babel-source (>= 4.0, < 6)
-      execjs (~> 2.0)
     bcrypt (3.1.12)
     bindex (0.5.0)
     bootsnap (1.4.2)
@@ -167,12 +163,6 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    react-rails (2.4.7)
-      babel-transpiler (>= 0.7.0)
-      connection_pool
-      execjs
-      railties (>= 3.2)
-      tilt
     ruby_dep (1.5.0)
     sass (3.7.3)
       sass-listen (~> 4.0.0)
@@ -258,7 +248,6 @@ DEPENDENCIES
   puma (~> 3.11)
   rack-cors
   rails (~> 5.2.2)
-  react-rails
   sass-rails (~> 5.0)
   selectize-rails
   spring
