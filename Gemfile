@@ -42,8 +42,6 @@ gem 'jquery-rails'
 gem "bootstrap"
 gem 'active_model_serializers'
 gem 'rack-cors'
-gem 'webpacker'
-gem 'react-rails'
 gem 'geocoder'
 gem 'stripe'
 gem 'htmlbeautifier'
