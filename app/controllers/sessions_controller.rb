@@ -9,14 +9,16 @@ class SessionsController < ApplicationController
             flash[:primary] = "Welcome, #{user.first_name}!"
             redirect_to clients_path
         else
-            flash[:danger] = "Email or password is incorrect"
-            render :new
+            respond_to do |format|
+                format.html{render :new, notice: "Email or Password is incorrect"}
+            end
         end
     end
 
     def destroy
         session[:user_id] = nil
-        flash[:primary] = "Logged Out"
-        redirect_to new_session_path
+        respond_to do |format|
+            format.html{redirect_to new_session_path :new, notice: "Logged Out"}
+        end
     end
 end
