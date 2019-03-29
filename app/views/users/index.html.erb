@@ -20,7 +20,9 @@
             <%= user.email %>
             <td>
               <%= link_to 'Show More Detail', user, class:"btn-sm btn-info" %>
+              <% if current_user.admin == true %>
               <%= link_to 'Delete Record', user, method: :delete, data: { confirm: 'This action will permanently delete this entry. Are you sure?' }, class:"btn-sm btn-danger" %>
+              <% end %>
             </td>
           </td>
         </tr>
