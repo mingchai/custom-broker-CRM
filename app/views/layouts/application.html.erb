@@ -21,7 +21,7 @@
             <header id = "sidenav" class="span4">
               <%= stylesheet_link_tag 'navbar' %>
               <nav>
-                <%= link_to image_tag('/assets/logo.svg', id: "logo"), root_path %>
+                <%= link_to image_tag('logo.svg', id: "logo"), root_path %>
                 <ul>
                   <% if user_signed_in? %>
                     <li>
