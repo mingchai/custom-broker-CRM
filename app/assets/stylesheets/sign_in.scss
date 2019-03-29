@@ -1,5 +1,5 @@
 #background-container {
-  background: url(/assets/chairs.jpg) no-repeat center;
+  background: url(asset-path('chairs.jpg')) no-repeat center;
   background-size: cover;
   height: 100vh;
   position: relative;
