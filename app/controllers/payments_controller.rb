@@ -12,7 +12,7 @@ class PaymentsController < ApplicationController
         amount: (@policy.annual_premium * 100).to_i,
         currency: "cad",
         source: params[:stripe_token],
-        description: "Charge for policy with ID: #{@policy.id}"
+        description: "Charge for policy with ID: #{@policy.policy_number}"
       )
 
       @policy.update(stripe_charge_id: charge.id)

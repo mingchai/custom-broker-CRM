@@ -1,4 +1,4 @@
-const stripePublishableKey = <%= ENV["STRIPE_PUBLISHABLE_KEY"] %>;
+const stripePublishableKey = '<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>';
 const stripe = Stripe(stripePublishableKey);
 const style = {
   base: {
