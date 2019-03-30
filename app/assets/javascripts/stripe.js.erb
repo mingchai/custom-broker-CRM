@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const { error, token } = data;
 
       if (error) {
+        console.log(error);
         document.getElementById("card-errors").innerText = error.messages;
       } else {
         console.log(token);
