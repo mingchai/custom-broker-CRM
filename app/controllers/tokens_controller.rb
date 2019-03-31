@@ -15,5 +15,6 @@ class TokensController < ApplicationController
     )
 
     render json: { identity: identity, token: token.to_jwt }
+    puts token.to_jwt
   end
 end
