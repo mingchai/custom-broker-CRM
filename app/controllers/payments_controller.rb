@@ -18,7 +18,9 @@ class PaymentsController < ApplicationController
       @policy.update(stripe_charge_id: charge.id)
 
       message = "Hi, #{client.first_name}! A payment of $#{@policy.annual_premium} was made for policy #'#{@policy.policy_number}' under your account. Please login to your account to see full details."
-      TwilioTextMessenger.new(message).text_client
+      phone_number = @policy.client.phone_number
+
+      TwilioTextMessenger.new(message, phone_number).text_client
 
       respond_to do |format|
         format.html{redirect_to client_path(client), notice:"Policy premium paid!"}

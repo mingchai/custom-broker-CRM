@@ -28,7 +28,7 @@ class PoliciesController < ApplicationController
   def create
     @client = Client.find params[:client_id]
     @policy = Policy.new(policy_params)
-    @policy.client_id = @client.id
+    # @policy.client_id = @client.id
 
     respond_to do |format|
       if @policy.save
@@ -50,8 +50,9 @@ class PoliciesController < ApplicationController
     respond_to do |format|
       if @policy.update(policy_params)
         message = "Hi, #{@policy.client.first_name}! Policy number '#{@policy.policy_number}' was recently updated. Please login to your account to see full details."
+        phone_number = @policy.client.phone_number
 
-        TwilioTextMessenger.new(message).text_client
+        TwilioTextMessenger.new(message, phone_number).text_client
 
         format.html { redirect_to client_path(@policy.client), notice: 'Policy was successfully updated.'}
         format.json { render :show, status: :ok, location: @policy }
