@@ -17,7 +17,8 @@ class Chat {
 
         Twilio.Chat.Client
           .create(data.token)
-          .then(client => this.setupClient(client));
+          .then(client => this.setupClient(client))
+          .catch(e => { console.error('Got an error:', e.code, e.message); });
       }
     });
   }
