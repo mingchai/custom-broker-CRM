@@ -7,9 +7,9 @@ class TokensController < ApplicationController
     grant.service_sid = ENV['TWILIO_CHAT_SERVICE_SID']
 
     token = Twilio::JWT::AccessToken.new(
-      'ENV['TWILIO_ACCOUNT_SID']',
-      'ENV['TWILIO_API_KEY']',
-      'ENV['TWILIO_API_SECRET']',
+      ENV['TWILIO_ACCOUNT_SID'],
+      ENV['TWILIO_API_KEY'],
+      ENV['TWILIO_API_SECRET'],
       [grant],
       identity: identity
     )
