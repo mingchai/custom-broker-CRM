@@ -28,7 +28,7 @@ class PoliciesController < ApplicationController
   def create
     @client = Client.find params[:client_id]
     @policy = Policy.new(policy_params)
-    # @policy.client_id = @client.id
+    @policy.client_id = @client.id
 
     respond_to do |format|
       if @policy.save
