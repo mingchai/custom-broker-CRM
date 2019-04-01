@@ -1,4 +1,4 @@
-CRM in Ruby
+# CRM in Ruby
 
 # Summary
 
@@ -18,5 +18,5 @@ If you would like to explore the deployed version, you can login with either of 
 ## Known Issues
 * chat feature not fully functional on deployed site (console message: 'Error: can't connect to twilsock'); 
     * Status: under investigation
-* Twilio trial account in effect; unverified numbers cannot be dialed at this time
-    * Status: live phone number pending
+* ~Twilio trial account in effect; unverified numbers cannot be dialed at this time~
+    * Status: ~live phone number pending~  Resolved - create a client profile with your information to experience click-to-call feature
