@@ -4,7 +4,7 @@
 
 This app is a custom CRM system designed with the insurance agent in mind. It combines instant messaging, click-to-call, payment processing, and exposure/hazard mapping into a single package. A video walkthrough can be found here: https://youtu.be/ddVXhJuaSTA
 
-If you would like to explore the deployed version, you can login with either of the following:
+If you would like to explore the deployed version, you can login with either of the following at https://custom-broker-crm.herokuapp.com:
  - username: guest1@mauro.org
  - password: guest1
 
@@ -18,5 +18,5 @@ If you would like to explore the deployed version, you can login with either of 
 ## Known Issues
 * chat feature not fully functional on deployed site (console message: 'Error: can't connect to twilsock'); 
     * Status: under investigation
-* ~Twilio trial account in effect; unverified numbers cannot be dialed at this time~
+* Twilio trial account in effect; unverified numbers cannot be dialed at this time
     * Status: ~live phone number pending~  Resolved - create a client profile with your information to experience click-to-call feature
