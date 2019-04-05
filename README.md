@@ -14,6 +14,13 @@ If you would like to explore the deployed version, you can login with either of 
  Two logins have been provided to test the instant messaging feature.
  
  The following APIs have been used: Stripe, Twilio, and Google Maps.
+ 
+ ## Planned Future Features:
+* React front-end
+* States for client pipeline
+* Auto calculation for mock quotes
+* Mock client-facing site with linked lead generation tool
+    * Sample auto-quote tool for those visiting for an immediate quote
 
 ## Known Issues
 * chat feature not fully functional on deployed site (console message: 'Error: can't connect to twilsock'); 
