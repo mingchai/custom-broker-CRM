@@ -19,4 +19,6 @@ If you would like to explore the deployed version, you can login with either of 
 * chat feature not fully functional on deployed site (console message: 'Error: can't connect to twilsock'); 
     * Status: under investigation
 * Twilio trial account in effect; unverified numbers cannot be dialed at this time
-    * Status: ~live phone number pending~  Resolved - create a client profile with your information to experience click-to-call feature
+    * Status: ~live phone number pending~  Resolved - create a client profile with your information to experience click-to-call, SMS updates, and Google Maps integration.
+    
+To test Stripe payments, simply use '4242 4242 4242 4242' as the credit card number and any random set of digits for the CCV and zip or postal code requested.
