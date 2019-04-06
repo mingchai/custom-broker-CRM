@@ -1,7 +1,7 @@
 class Api::V1::ClientsController < Api::ApplicationController
-    before_action :authenticate_user!, except: [:index, :show]
+    before_action :authenticate_user!
     def index
-        clients = Client.all
+        clients = Client.all.order(created_at: :desc)
         render json: clients
     end
 
@@ -11,7 +11,7 @@ class Api::V1::ClientsController < Api::ApplicationController
 
     def create
         client = Client.new(client_params)
-        client.broker_id = current_user.id
+        client.user_id = current_user.id
 
       if client.save!
          render json:{first_name: client.first_name,
@@ -23,10 +23,15 @@ class Api::V1::ClientsController < Api::ApplicationController
          province: client.province,
          postal_code: client.postal_code,
          marketing_consent: client.marketing_consent,
-         broker_id: client.broker_id }
+         user_id: client.user_id }
       else
         render json: {errors: client.errors, status: 422 }
       end
+    end
+
+    def destroy
+      client.destroy
+      render json:{status: 200}, status: 200
     end
 
     private
