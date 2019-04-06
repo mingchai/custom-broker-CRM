@@ -13,10 +13,11 @@ class Chat {
       url: "/tokens",
       type: "POST",
       success: data => {
+        let clientOptions = { logLevel: 'debug' };
         this.identity = data.identity;
 
         Twilio.Chat.Client
-          .create(data.token)
+          .create(data.token, clientOptions)
           .then(client => this.setupClient(client));
       }
     });
