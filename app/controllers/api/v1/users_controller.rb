@@ -17,6 +17,10 @@ class Api::V1::UsersController < Api::ApplicationController
     end
   end
 
+  def current
+    render json: {status: 200, current_user: ActiveModelSerializers::SerializableResource.new(current_user).as_json}
+  end
+
 private
   def user
     @user ||= User.find params[:id]
