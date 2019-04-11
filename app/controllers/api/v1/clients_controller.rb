@@ -34,6 +34,17 @@ class Api::V1::ClientsController < Api::ApplicationController
       render json:{status: 200}, status: 200
     end
 
+    def call
+      # render json: params
+        @client = Client.find params[:client_id]
+        client = Twilio::REST::Client.new ENV["TWILIO_ACCOUNT_SID"], ENV["TWILIO_AUTH_TOKEN"]
+        call = client.calls.create(
+          to:   @client.phone_number,
+          from: ENV["TWILIO_PHONE_NUMBER"],
+          url: "https://example.herokuapp.com/connect/#{ENV["TWILIO_PHONE_NUMBER"]}"
+        )
+    end
+
     private
     def client
         @client ||= Client.find params[:id]
