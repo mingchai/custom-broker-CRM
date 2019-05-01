@@ -14,16 +14,8 @@ class Api::V1::ClientsController < Api::ApplicationController
         client.user_id = current_user.id
 
       if client.save!
-         render json:{first_name: client.first_name,
-         last_name: client.last_name,
-         phone_number: client.phone_number,
-         email: client.email,
-         street_address: client.street_address,
-         city: client.city,
-         province: client.province,
-         postal_code: client.postal_code,
-         marketing_consent: client.marketing_consent,
-         user_id: client.user_id }
+        # will show attributes specified in the client_serializer
+         render json: client
       else
         render json: {errors: client.errors, status: 422 }
       end
