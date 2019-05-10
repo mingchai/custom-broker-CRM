@@ -14,7 +14,7 @@ class ClientSerializer < ActiveModel::Serializer
    has_many(:policies)
 
    class PolicySerializer < ActiveModel::Serializer
-    attributes :id, :annual_premium, :client_id, :created_at, :updated_at, :start_date, :expiry_date, :stripe_charge_id
+    attributes :id, :policy_number, :annual_premium, :client_id, :created_at, :updated_at, :start_date, :expiry_date, :stripe_charge_id
     belongs_to(:client)
   end
 end
